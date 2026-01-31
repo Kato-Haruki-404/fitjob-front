@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
 
 const noto_Sans_JP = Noto_Sans_JP();
 
@@ -16,8 +17,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="ja">
-			<body className={`${noto_Sans_JP.className} antialiased`}>
-				{children}
+			<body
+				className={`${noto_Sans_JP.className} antialiased h-screen flex flex-col`}
+			>
+				<Header />
+				<main className="flex-1 overflow-auto">{children}</main>
 			</body>
 		</html>
 	);
