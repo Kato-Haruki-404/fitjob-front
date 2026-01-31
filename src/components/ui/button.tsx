@@ -14,9 +14,9 @@ export default function Button({ variant = "primary", children }: ButtonProps) {
 		"py-3 px-10 font-bold text-base rounded-xl hover:opacity-70 cursor-pointer transition-all duration-200 ease-in-out";
 	const variantClasses = {
 		primary: "bg-main text-white",
-		outline: "text-foreground outline outline-foreground -outline-offset-1",
-		link: "text-foreground underline",
-		ghost: "text-foreground",
+		outline: "outline -outline-offset-1",
+		link: "underline",
+		ghost: "",
 	}[variant];
 
 	return (
