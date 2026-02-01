@@ -101,7 +101,7 @@ export default function LoginPage() {
 				<Button className="w-full" type="submit" disabled={isSubmitting}>
 					{isSubmitting ? "ログイン中..." : "ログイン"}
 				</Button>
-				<Link href="/register">アカウントをお持ちでない方はコチラ</Link>
+				<Link href="/signup">アカウントをお持ちでない方はコチラ</Link>
 			</form>
 		</div>
 	);
