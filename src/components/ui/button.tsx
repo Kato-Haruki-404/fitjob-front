@@ -1,24 +1,37 @@
 import { Button as HeadlessButton } from "@headlessui/react";
+import { Slot } from "@radix-ui/react-slot";
 import { clsx } from "clsx";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type Variant = "primary" | "outline" | "link" | "ghost";
 
-type ButtonProps = Omit<
-	ComponentPropsWithoutRef<typeof HeadlessButton>,
-	"className"
-> & {
-	variant?: Varient;
+type SharedButtonProps = {
+	variant?: Variant;
 	className?: string;
 };
 
-export default function Button({
-	variant = "primary",
-	children,
-	className,
-	...props
-}: ButtonProps) {
+type HeadlessButtonProps = Omit<
+	ComponentPropsWithoutRef<typeof HeadlessButton>,
+	"className"
+> &
+	SharedButtonProps & {
+		asChild?: false;
+	};
+
+type SlotButtonProps = Omit<
+	ComponentPropsWithoutRef<typeof Slot>,
+	"className" | "children"
+> &
+	SharedButtonProps & {
+		asChild: true;
+		children?: ReactNode;
+	};
+
+type ButtonProps = HeadlessButtonProps | SlotButtonProps;
+
+export default function Button(props: ButtonProps) {
+	const { variant = "primary", className } = props;
 	const baseClasses =
 		"py-3 px-10 font-bold text-base rounded-xl hover:opacity-70 cursor-pointer transition-all duration-200 ease-in-out disabled:opacity-60 disabled:cursor-not-allowed";
 	const variantClasses = {
@@ -28,11 +41,22 @@ export default function Button({
 		ghost: "",
 	}[variant];
 
+	const mergedClassName = twMerge(clsx(baseClasses, variantClasses, className));
+
+	if (props.asChild) {
+		const { children, asChild: _asChild, ...rest } = props;
+		void _asChild;
+		return (
+			<Slot className={mergedClassName} {...rest}>
+				{children}
+			</Slot>
+		);
+	}
+
+	const { children, asChild: _asChild, ...rest } = props;
+	void _asChild;
 	return (
-		<HeadlessButton
-			className={twMerge(clsx(baseClasses, variantClasses, className))}
-			{...props}
-		>
+		<HeadlessButton className={mergedClassName} {...rest}>
 			{children}
 		</HeadlessButton>
 	);
