@@ -12,15 +12,15 @@ export default function Footer() {
 						<li>
 							<Link href="/">ホーム</Link>
 						</li>
-						<hr className="h-5 w-0.5 bg-white" />
+						<li aria-hidden="true" className="h-5 w-0.5 bg-white" />
 						<li>
-							<Link href="/favorite">お気に入り</Link>
+							<Link href="favorite">お気に入り</Link>
 						</li>
-						<hr className="h-5 w-0.5 bg-white" />
+						<li aria-hidden="true" className="h-5 w-0.5 bg-white" />
 						<li>
-							<Link href="/mypage">マイページ</Link>
+							<Link href="mypage">マイページ</Link>
 						</li>
-						<hr className="h-5 w-0.5 bg-white" />
+						<li aria-hidden="true" className="h-5 w-0.5 bg-white" />
 						<li>
 							<Link href="/">求人募集</Link>
 						</li>
