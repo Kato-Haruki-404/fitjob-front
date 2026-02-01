@@ -8,7 +8,7 @@ import Button from "@/components/ui/button";
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
-		<header className="flex items-center justify-between px-10 h-20">
+		<header className="flex items-center justify-between px-10 h-20 shrink-0">
 			<Link href="/" className="text-2xl font-bold">
 				FitJob
 			</Link>
