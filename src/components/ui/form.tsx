@@ -21,7 +21,7 @@ export function Label({ ...props }: LabelProps) {
 export function Input({ ...props }: InputProps) {
 	return (
 		<HeadlessInput
-			className="py-3 px-5 text-3 border border-[#D7D7D7] -outline-offset-1 rounded-xl min-w-95"
+			className="py-3 px-5 text-3 border border-[#D7D7D7] -outline-offset-1 rounded-xl"
 			{...props}
 		/>
 	);
