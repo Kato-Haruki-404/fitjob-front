@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import type { ComponentPropsWithoutRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-type Varient = "primary" | "outline" | "link" | "ghost";
+type Variant = "primary" | "outline" | "link" | "ghost";
 
 type ButtonProps = Omit<
 	ComponentPropsWithoutRef<typeof HeadlessButton>,
