@@ -61,7 +61,7 @@ export default function LoginPage() {
 									/>
 									{shouldShowError ? (
 										<p className="text-sm text-red-600">
-											{String(errorMessage)}
+											{errorMessage?.message}
 										</p>
 									) : null}
 								</FormField>
@@ -90,7 +90,7 @@ export default function LoginPage() {
 									/>
 									{shouldShowError ? (
 										<p className="text-sm text-red-600">
-											{String(errorMessage)}
+											{errorMessage?.message}
 										</p>
 									) : null}
 								</FormField>
