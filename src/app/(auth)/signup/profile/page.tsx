@@ -33,6 +33,7 @@ export default function ProfilePage() {
 			resume: undefined as File | undefined,
 		},
 		validators: {
+			onChange: profileSchema,
 			onSubmit: profileSchema,
 		},
 		onSubmit: async ({ value }) => {
