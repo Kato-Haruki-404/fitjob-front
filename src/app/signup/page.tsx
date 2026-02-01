@@ -29,7 +29,7 @@ const signUpFormSchema = z
 		}
 	});
 
-export default function LoginPage() {
+export default function SignUpPage() {
 	const form = useAppForm({
 		defaultValues: {
 			email: "",
