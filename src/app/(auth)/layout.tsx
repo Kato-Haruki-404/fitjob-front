@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "@/app/globals.css";
-import Footer from "@/components/footer";
 import Header from "@/components/header";
 
 const noto_Sans_JP = Noto_Sans_JP();
@@ -23,7 +22,6 @@ export default function RootLayout({
 			>
 				<Header />
 				<main className="flex-1 overflow-auto">{children}</main>
-				<Footer />
 			</body>
 		</html>
 	);
