@@ -18,7 +18,7 @@ export default function Footer() {
 						</li>
 						<hr className="h-5 w-0.5 bg-white" />
 						<li>
-							<Link href="mypage">マイページ</Link>
+							<Link href="/mypage">マイページ</Link>
 						</li>
 						<hr className="h-5 w-0.5 bg-white" />
 						<li>
