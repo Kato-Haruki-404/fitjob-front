@@ -9,7 +9,9 @@ export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<header className="flex items-center justify-between px-10 h-20">
-			<h1 className="text-2xl font-bold">FitJob</h1>
+			<Link href="/" className="text-2xl font-bold">
+				FitJob
+			</Link>
 			<nav className="hidden md:flex items-center gap-10">
 				<div className="flex items-center gap-10">
 					<Link href="/favorite" className="flex font-bold items-center gap-2">
