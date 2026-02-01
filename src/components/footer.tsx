@@ -14,7 +14,7 @@ export default function Footer() {
 						</li>
 						<hr className="h-5 w-0.5 bg-white" />
 						<li>
-							<Link href="favorite">お気に入り</Link>
+							<Link href="/favorite">お気に入り</Link>
 						</li>
 						<hr className="h-5 w-0.5 bg-white" />
 						<li>
