@@ -99,7 +99,7 @@ export default function SignUpPage() {
 								<FormField>
 									<Label>パスワード</Label>
 									<Input
-										placeholder=""
+										placeholder="password"
 										type="password"
 										autoComplete="new-password"
 										name={field.name}
@@ -129,6 +129,7 @@ export default function SignUpPage() {
 								<FormField>
 									<Label>パスワード確認</Label>
 									<Input
+										placeholder="password"
 										type="password"
 										autoComplete="new-password"
 										name={field.name}

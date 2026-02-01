@@ -50,6 +50,7 @@ export default function LoginPage() {
 								<FormField>
 									<Label>メールアドレス</Label>
 									<Input
+										placeholder="example@example.com"
 										type="email"
 										autoComplete="email"
 										name={field.name}
@@ -79,6 +80,7 @@ export default function LoginPage() {
 								<FormField>
 									<Label>パスワード</Label>
 									<Input
+										placeholder="password"
 										type="password"
 										autoComplete="current-password"
 										name={field.name}
