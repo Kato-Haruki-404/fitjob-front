@@ -10,6 +10,7 @@
         "@tanstack/react-form": "^1.28.0",
         "@tanstack/react-form-devtools": "^0.2.13",
         "@tanstack/react-form-nextjs": "^1.28.0",
+        "@radix-ui/react-slot": "^1.2.4",
         "clsx": "^2.1.1",
         "lefthook": "^2.0.16",
         "lucide-react": "^0.563.0",
@@ -265,6 +266,10 @@
     "@oxc-resolver/binding-win32-ia32-msvc": ["@oxc-resolver/binding-win32-ia32-msvc@11.16.4", "", { "os": "win32", "cpu": "ia32" }, "sha512-ePW1islJrv3lPnef/iWwrjrSpRH8kLlftdKf2auQNWvYLx6F0xvcnv9d+r/upnVuttoQY9amLnWJf+JnCRksTw=="],
 
     "@oxc-resolver/binding-win32-x64-msvc": ["@oxc-resolver/binding-win32-x64-msvc@11.16.4", "", { "os": "win32", "cpu": "x64" }, "sha512-qnjQhjHI4TDL3hkidZyEmQRK43w2NHl6TP5Rnt/0XxYuLdEgx/1yzShhYidyqWzdnhGhSPTM/WVP2mK66XLegA=="],
+
+    "@radix-ui/react-compose-refs": ["@radix-ui/react-compose-refs@1.1.2", "", { "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-z4eqJvfiNnFMHIIvXP3CY57y2WJs5g2v3X0zm9mEJkrkNv4rDxu+sg9Jh8EkXyeqBkB7SOcboo9dMVqhyrACIg=="],
+
+    "@radix-ui/react-slot": ["@radix-ui/react-slot@1.2.4", "", { "dependencies": { "@radix-ui/react-compose-refs": "1.1.2" }, "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-Jl+bCv8HxKnlTLVrcDE8zTMJ09R9/ukw4qBs/oZClOfoQk/cOTbDn+NceXfV7j09YPVQUryJPHurafcSg6EVKA=="],
 
     "@react-aria/focus": ["@react-aria/focus@3.21.3", "", { "dependencies": { "@react-aria/interactions": "^3.26.0", "@react-aria/utils": "^3.32.0", "@react-types/shared": "^3.32.1", "@swc/helpers": "^0.5.0", "clsx": "^2.0.0" }, "peerDependencies": { "react": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1", "react-dom": "^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1" } }, "sha512-FsquWvjSCwC2/sBk4b+OqJyONETUIXQ2vM0YdPAuC+QFQh2DT6TIBo6dOZVSezlhudDla69xFBd6JvCFq1AbUw=="],
 

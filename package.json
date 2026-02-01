@@ -17,6 +17,7 @@
 		"@tanstack/react-form": "^1.28.0",
 		"@tanstack/react-form-devtools": "^0.2.13",
 		"@tanstack/react-form-nextjs": "^1.28.0",
+		"@radix-ui/react-slot": "^1.2.4",
 		"clsx": "^2.1.1",
 		"lefthook": "^2.0.16",
 		"lucide-react": "^0.563.0",

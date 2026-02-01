@@ -22,12 +22,12 @@ export default function Header() {
 					</Link>
 				</div>
 				<div className="flex items-center gap-5">
-					<Link href="/login">
-						<Button variant="outline">ログイン</Button>
-					</Link>
-					<Link href="/">
-						<Button>求人募集</Button>
-					</Link>
+					<Button asChild variant="outline">
+						<Link href="/login">ログイン</Link>
+					</Button>
+					<Button asChild>
+						<Link href="/">求人募集</Link>
+					</Button>
 				</div>
 			</nav>
 			<button
