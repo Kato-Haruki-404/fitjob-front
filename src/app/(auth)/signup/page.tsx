@@ -69,6 +69,7 @@ export default function SignUpPage() {
 								<FormField>
 									<Label>メールアドレス</Label>
 									<Input
+										placeholder="example@example.com"
 										type="email"
 										autoComplete="email"
 										name={field.name}
@@ -98,6 +99,7 @@ export default function SignUpPage() {
 								<FormField>
 									<Label>パスワード</Label>
 									<Input
+										placeholder=""
 										type="password"
 										autoComplete="new-password"
 										name={field.name}
