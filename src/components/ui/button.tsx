@@ -2,10 +2,10 @@ import { Button as HeadlessButton } from "@headlessui/react";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-type Varient = "primary" | "outline" | "link" | "ghost";
+type Variant = "primary" | "outline" | "link" | "ghost";
 
 type ButtonProps = {
-	variant?: Varient;
+	variant?: Variant;
 	children: React.ReactNode;
 };
 
