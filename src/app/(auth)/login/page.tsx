@@ -1,10 +1,11 @@
 "use client";
 
+import { useForm } from "@tanstack/react-form";
 import Link from "next/link";
 import { z } from "zod";
+import { AuthLayout } from "@/components/auth/auth-layout";
 import Button from "@/components/ui/button";
-import { Field as FormField, Input, Label } from "@/components/ui/form";
-import { useAppForm } from "@/hooks/useForm";
+import { TextField } from "@/components/ui/form-fields";
 
 const loginFormSchema = z.object({
 	email: z.email("有効なメールアドレスを入力してください"),
@@ -12,7 +13,7 @@ const loginFormSchema = z.object({
 });
 
 export default function LoginPage() {
-	const form = useAppForm({
+	const form = useForm({
 		defaultValues: {
 			email: "",
 			password: "",
@@ -27,77 +28,43 @@ export default function LoginPage() {
 	});
 
 	const isSubmitting = form.state.isSubmitting;
+	const isSubmitted = form.state.isSubmitted;
 
 	return (
-		<div className="bg-linear-to-b from-[#F8B819] to-[#F0D320] h-full flex items-center justify-center">
+		<AuthLayout title="ログイン">
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
 					void form.handleSubmit();
 				}}
-				className="flex flex-col items-center px-5 pt-15 pb-10 bg-white rounded-3xl gap-10 w-full max-w-md m-5"
+				className="flex flex-col items-center gap-10 w-full"
 			>
-				<h1 className="font-bold text-black text-3xl">ログイン</h1>
 				<div className="flex flex-col gap-5 w-full">
 					<form.Field name="email">
-						{(field) => {
-							const errorMessage = field.state.meta.errors[0];
-							const shouldShowError =
-								field.state.meta.errors.length > 0 &&
-								(field.state.meta.isTouched || form.state.isSubmitted);
-
-							return (
-								<FormField>
-									<Label>メールアドレス</Label>
-									<Input
-										placeholder="example@example.com"
-										type="email"
-										autoComplete="email"
-										name={field.name}
-										value={field.state.value}
-										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(e.target.value)}
-										disabled={isSubmitting}
-										aria-invalid={shouldShowError}
-									/>
-									{shouldShowError ? (
-										<p className="text-sm text-red-600">
-											{errorMessage?.message}
-										</p>
-									) : null}
-								</FormField>
-							);
-						}}
+						{(field) => (
+							<TextField
+								label="メールアドレス"
+								field={field}
+								isSubmitted={isSubmitted}
+								disabled={isSubmitting}
+								placeholder="example@example.com"
+								type="email"
+								autoComplete="email"
+							/>
+						)}
 					</form.Field>
 					<form.Field name="password">
-						{(field) => {
-							const errorMessage = field.state.meta.errors[0];
-							const shouldShowError =
-								field.state.meta.errors.length > 0 &&
-								(field.state.meta.isTouched || form.state.isSubmitted);
-
-							return (
-								<FormField>
-									<Label>パスワード</Label>
-									<Input
-										placeholder="password"
-										type="password"
-										autoComplete="current-password"
-										name={field.name}
-										value={field.state.value}
-										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(e.target.value)}
-										disabled={isSubmitting}
-										aria-invalid={shouldShowError}
-									/>
-									{shouldShowError ? (
-										<p className="text-sm text-red-600">
-											{errorMessage?.message}
-										</p>
-									) : null}
-								</FormField>
-							);
-						}}
+						{(field) => (
+							<TextField
+								label="パスワード"
+								field={field}
+								isSubmitted={isSubmitted}
+								disabled={isSubmitting}
+								placeholder="password"
+								type="password"
+								autoComplete="current-password"
+							/>
+						)}
 					</form.Field>
 				</div>
 				<Button className="w-full" type="submit" disabled={isSubmitting}>
@@ -107,6 +74,6 @@ export default function LoginPage() {
 					アカウントをお持ちでない方はコチラ
 				</Link>
 			</form>
-		</div>
+		</AuthLayout>
 	);
 }
