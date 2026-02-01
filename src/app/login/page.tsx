@@ -35,10 +35,10 @@ export default function LoginPage() {
 					e.preventDefault();
 					void form.handleSubmit();
 				}}
-				className="flex flex-col items-center px-5 pt-15 pb-10 bg-white rounded-3xl gap-10"
+				className="flex flex-col items-center px-5 pt-15 pb-10 bg-white rounded-3xl gap-10 w-full max-w-md m-5"
 			>
 				<h1 className="font-bold text-black text-3xl">ログイン</h1>
-				<div className="flex flex-col gap-5">
+				<div className="flex flex-col gap-5 w-full">
 					<form.Field name="email">
 						{(field) => {
 							const errorMessage = field.state.meta.errors[0];
@@ -101,7 +101,9 @@ export default function LoginPage() {
 				<Button className="w-full" type="submit" disabled={isSubmitting}>
 					{isSubmitting ? "ログイン中..." : "ログイン"}
 				</Button>
-				<Link href="/signup">アカウントをお持ちでない方はコチラ</Link>
+				<Link href="/signup" className="underline">
+					アカウントをお持ちでない方はコチラ
+				</Link>
 			</form>
 		</div>
 	);
