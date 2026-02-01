@@ -44,8 +44,16 @@ export default function Button(props: ButtonProps) {
 	const mergedClassName = twMerge(clsx(baseClasses, variantClasses, className));
 
 	if (props.asChild) {
-		const { children, asChild: _asChild, ...rest } = props;
+		const {
+			children,
+			asChild: _asChild,
+			variant: _variant,
+			className: _className,
+			...rest
+		} = props;
 		void _asChild;
+		void _variant;
+		void _className;
 		return (
 			<Slot className={mergedClassName} {...rest}>
 				{children}
@@ -53,8 +61,16 @@ export default function Button(props: ButtonProps) {
 		);
 	}
 
-	const { children, asChild: _asChild, ...rest } = props;
+	const {
+		children,
+		asChild: _asChild,
+		variant: _variant,
+		className: _className,
+		...rest
+	} = props;
 	void _asChild;
+	void _variant;
+	void _className;
 	return (
 		<HeadlessButton className={mergedClassName} {...rest}>
 			{children}
