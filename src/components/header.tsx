@@ -1,8 +1,10 @@
 "use client";
 
 import { Bookmark, CircleUserRound, Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import logo from "@/../public/logo.svg";
 import Button from "@/components/ui/button";
 
 export default function Header() {
@@ -10,7 +12,7 @@ export default function Header() {
 	return (
 		<header className="flex items-center justify-between px-10 h-20 shrink-0">
 			<Link href="/" className="text-2xl font-bold">
-				FitJob
+				<Image src={logo.src} width={140} height={31} alt="FitJob" />
 			</Link>
 			<nav className="hidden md:flex items-center gap-10">
 				<div className="flex items-center gap-10">
