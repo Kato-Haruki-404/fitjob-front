@@ -12,11 +12,17 @@ export const profileSchema = z.object({
 	furiganaLastName: z
 		.string()
 		.min(1, { error: "苗字のふりがなを入力してください" })
-		.max(100, { error: "苗字のふりがなが長すぎます" }),
+		.max(100, { error: "苗字のふりがなが長すぎます" })
+		.regex(/^[\u3041-\u3096]+$/, {
+			message: "ふりがなはひらがなで入力してください",
+		}),
 	furiganaFirstName: z
 		.string()
 		.min(1, { error: "名前のふりがなを入力してください" })
-		.max(100, { error: "名前のふりがなが長すぎます" }),
+		.max(100, { error: "名前のふりがなが長すぎます" })
+		.regex(/^[\u3041-\u3096]+$/, {
+			message: "ふりがなはひらがなで入力してください",
+		}),
 	dateOfBirth: z
 		.number({ error: "生年月日を入力してください" })
 		.min(1, { error: "生年月日を入力してください" })
