@@ -53,6 +53,11 @@ export default function ProfilePage() {
 					void form.handleSubmit();
 				}}
 				className="flex flex-col items-center gap-10 w-full font-medium"
+				onKeyDown={(e) => {
+					if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
+						e.preventDefault();
+					}
+				}}
 			>
 				<div className="flex flex-col gap-5 w-full">
 					{/* 氏名 */}
