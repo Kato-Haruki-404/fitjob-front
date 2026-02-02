@@ -8,7 +8,7 @@ const linkclass =
 
 export default function Home() {
 	return (
-		<div className="flex flex-col py-15 px-10 gap-10 font-medium max-w-5xl mx-auto">
+		<div className="flex flex-col py-15 px-5 md:px-10 gap-10 font-medium max-w-5xl mx-auto">
 			<PayTypeToggle />
 			<CategorieGrid
 				items={[
