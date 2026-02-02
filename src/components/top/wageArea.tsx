@@ -1,4 +1,4 @@
-import CategorieGrid from "./categorieGrid";
+import CategoryGrid from "./categoryGrid";
 import PayTypeToggle from "./payTypeToggle";
 
 type WageAreaProps = {
@@ -9,7 +9,7 @@ export default function WageArea({ isDailyWage }: WageAreaProps) {
 	return (
 		<div className="flex flex-col gap-10 md:gap-5">
 			<PayTypeToggle isDailyWage={isDailyWage} />
-			<CategorieGrid
+			<CategoryGrid
 				items={
 					isDailyWage
 						? [

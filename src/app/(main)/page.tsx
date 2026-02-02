@@ -1,6 +1,6 @@
 import Link from "next/link";
-import ActivityLavels from "@/components/top/activityLavel";
-import CategorieGrid from "@/components/top/categorieGrid";
+import ActivityLevels from "@/components/top/activityLevel";
+import CategoryGrid from "@/components/top/categoryGrid";
 import WageArea from "@/components/top/wageArea";
 import { appendPayType } from "@/lib/urlUtils";
 
@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: Props) {
 			</div>
 			<div className="flex flex-col gap-5">
 				<h2>消費カロリーから探す</h2>
-				<CategorieGrid
+				<CategoryGrid
 					items={[
 						{ label: "800kcal以上", href: "/search?min_calories=800" },
 						{ label: "700kcal以上", href: "/search?min_calories=700" },
@@ -50,7 +50,7 @@ export default async function Home({ searchParams }: Props) {
 			</div>
 			<div className="flex flex-col gap-5">
 				<h2>歩数から探す</h2>
-				<CategorieGrid
+				<CategoryGrid
 					items={[
 						{ label: "20,000歩以上", href: "/search?min_stepcount=20000" },
 						{ label: "15,000歩以上", href: "/search?min_stepcount=15000" },
@@ -64,7 +64,7 @@ export default async function Home({ searchParams }: Props) {
 			</div>
 			<div className="flex flex-col gap-5">
 				<h2>運動量から探す</h2>
-				<ActivityLavels isDailyWage={isDailyWage} />
+				<ActivityLevels isDailyWage={isDailyWage} />
 			</div>
 		</div>
 	);
