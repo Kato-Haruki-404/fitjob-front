@@ -114,6 +114,7 @@ export function SelectField({
 		<Field>
 			{label && <Label>{label}</Label>}
 			<Select
+				name={field.name}
 				value={field.state.value ?? ""}
 				onBlur={field.handleBlur}
 				onChange={(e) => field.handleChange(e.target.value)}
