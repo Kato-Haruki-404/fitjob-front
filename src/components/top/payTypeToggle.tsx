@@ -8,7 +8,7 @@ export default function PayTypeToggle() {
 	const searchParams = useSearchParams();
 	const type = searchParams.get("type");
 	return (
-		<div className="flex p-1 md:p-2 bg-main rounded-xl text-sm  md:text-xl font-medium">
+		<div className="flex p-1 md:p-2 bg-main rounded-xl md:text-xl font-medium">
 			<Link
 				href="/"
 				className={clsx(
