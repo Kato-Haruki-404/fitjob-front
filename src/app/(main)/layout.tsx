@@ -1,4 +1,5 @@
 import Footer from "@/components/footer";
+import SearchArea from "@/components/searchArea";
 
 export default function MainLayout({
 	children,
@@ -7,7 +8,8 @@ export default function MainLayout({
 }>) {
 	return (
 		<>
-			<main className="flex-1 overflow-auto">{children}</main>
+			<SearchArea />
+			<main className="flex-1">{children}</main>
 			<Footer />
 		</>
 	);
