@@ -10,7 +10,8 @@ import {
 	TextareaField,
 	TextField,
 } from "@/components/ui/form-fields";
-import { profileSchema } from "@/schemas/profile";
+import type { Prefecture } from "@/schemas/profile";
+import { PREFECTURES, profileSchema } from "@/schemas/profile";
 
 export default function ProfilePage() {
 	const form = useForm({
@@ -25,7 +26,7 @@ export default function ProfilePage() {
 			age: undefined as number | undefined,
 			gender: undefined as "male" | "female" | "other" | undefined,
 			postalCode: "",
-			prefecture: "",
+			prefecture: undefined as Prefecture | undefined,
 			address: "",
 			phoneNumber: "",
 			identificationDocument: undefined as File | undefined,
@@ -226,12 +227,20 @@ export default function ProfilePage() {
 						</h2>
 						<form.Field name="prefecture">
 							{(field) => (
-								<TextField
+								<SelectField
 									field={field}
 									isSubmitted={isSubmitted}
 									disabled={isSubmitting}
-									placeholder="愛知県"
-								/>
+								>
+									<option value="" disabled>
+										選択してください
+									</option>
+									{PREFECTURES.map((pref) => (
+										<option key={pref} value={pref}>
+											{pref}
+										</option>
+									))}
+								</SelectField>
 							)}
 						</form.Field>
 					</div>
