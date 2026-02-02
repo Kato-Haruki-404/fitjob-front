@@ -21,13 +21,13 @@ export default async function Home({ searchParams }: Props) {
 			<div className="flex flex-col gap-5">
 				<h2>勤務期間から探す</h2>
 				<div className="flex flex-row gap-5">
-					<Link href={appendPayType("/", isDailyWage)} className={linkclass}>
+					<Link href={appendPayType("/search?workPeriod=single", isDailyWage)} className={linkclass}>
 						単発
 					</Link>
-					<Link href={appendPayType("/", isDailyWage)} className={linkclass}>
+					<Link href={appendPayType("/search?workPeriod=short", isDailyWage)} className={linkclass}>
 						短期
 					</Link>
-					<Link href={appendPayType("/", isDailyWage)} className={linkclass}>
+					<Link href={appendPayType("/search?workPeriod=long", isDailyWage)} className={linkclass}>
 						長期
 					</Link>
 				</div>
