@@ -2,8 +2,10 @@ import {
 	Field as HeadlessField,
 	Input as HeadlessInput,
 	Label as HeadlessLabel,
+	Select as HeadlessSelect,
 	Textarea as HeadlessTextarea,
 } from "@headlessui/react";
+import { ChevronDown } from "lucide-react";
 import type { ComponentPropsWithoutRef } from "react";
 
 type FieldProps = ComponentPropsWithoutRef<typeof HeadlessField>;
@@ -36,13 +38,15 @@ export function Input({ ...props }: InputProps) {
 
 export function Select({ ...props }: SelectProps) {
 	return (
-		<HeadlessInput
-			as="select"
-			className="py-3 px-5 text-3 border border-[#D7D7D7] -outline-offset-1 rounded-xl"
-			{...props}
-		>
-			{props.children}
-		</HeadlessInput>
+		<div className="relative w-full">
+			<HeadlessSelect
+				className="w-full py-3 px-5 text-3 border border-[#D7D7D7] -outline-offset-1 rounded-xl appearance-none pr-8"
+				{...props}
+			>
+				{props.children}
+			</HeadlessSelect>
+			<ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+		</div>
 	);
 }
 
