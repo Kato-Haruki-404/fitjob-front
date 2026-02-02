@@ -61,6 +61,7 @@ export function TextField({
 // NumberField
 type NumberFieldProps = BaseFieldProps & {
 	placeholder?: string;
+	min?: number;
 };
 
 export function NumberField({
@@ -69,6 +70,7 @@ export function NumberField({
 	isSubmitted,
 	disabled,
 	placeholder,
+	min,
 }: NumberFieldProps) {
 	const { errorMessage, shouldShowError } = getErrorState(field, isSubmitted);
 
@@ -87,6 +89,7 @@ export function NumberField({
 				}}
 				disabled={disabled}
 				aria-invalid={shouldShowError}
+				min={min}
 			/>
 			{shouldShowError && <ErrorMessage message={errorMessage?.message} />}
 		</Field>
