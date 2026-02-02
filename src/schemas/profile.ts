@@ -24,16 +24,16 @@ export const profileSchema = z.object({
 			message: "ふりがなはひらがなで入力してください",
 		}),
 	dateOfBirth: z
-		.number({ error: "生年月日を入力してください" })
-		.min(1, { error: "生年月日を入力してください" })
+		.number({ error: "日付を入力してください" })
+		.min(1, { error: "日付を入力してください" })
 		.max(31, { error: "正しくない日付です" }),
 	monthOfBirth: z
-		.number({ error: "生年月日を入力してください" })
-		.min(1, { error: "生年月日を入力してください" })
+		.number({ error: "月を入力してください" })
+		.min(1, { error: "月を入力してください" })
 		.max(12, { error: "正しくない月です" }),
 	yearOfBirth: z
-		.number({ error: "生年月日を入力してください" })
-		.min(1, { error: "生年月日を入力してください" })
+		.number({ error: "年を入力してください" })
+		.min(1, { error: "年を入力してください" })
 		.max(new Date().getFullYear(), { error: "正しくない年です" }),
 	age: z
 		.number({ error: "年齢を入力してください" })
