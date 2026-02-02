@@ -133,7 +133,7 @@ export default function ProfilePage() {
 										isSubmitted={isSubmitted}
 										disabled={isSubmitting}
 										placeholder={nowYear.toString()}
-										min={0}
+										min={1}
 									/>
 								)}
 							</form.Field>
@@ -144,7 +144,7 @@ export default function ProfilePage() {
 										isSubmitted={isSubmitted}
 										disabled={isSubmitting}
 										placeholder={nowMonth.toString()}
-										min={0}
+										min={1}
 									/>
 								)}
 							</form.Field>
@@ -155,7 +155,7 @@ export default function ProfilePage() {
 										isSubmitted={isSubmitted}
 										disabled={isSubmitting}
 										placeholder={nowDate.toString()}
-										min={0}
+										min={1}
 									/>
 								)}
 							</form.Field>
@@ -174,7 +174,7 @@ export default function ProfilePage() {
 									isSubmitted={isSubmitted}
 									disabled={isSubmitting}
 									placeholder="20"
-									min={0}
+									min={1}
 								/>
 							)}
 						</form.Field>
