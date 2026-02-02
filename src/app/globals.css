@@ -4,12 +4,22 @@
 	--background: #ffffff;
 	--foreground: #333333;
 	--main-color: #fabe00;
+	--activity-level-1: #4fc3f7;
+	--activity-level-2: #22c55e;
+	--activity-level-3: #fbcb0d;
+	--activity-level-4: #ff8929;
+	--activity-level-5: #ef4444;
 }
 
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-main: var(--main-color);
+	--color-activity-level-1: var(--activity-level-1);
+	--color-activity-level-2: var(--activity-level-2);
+	--color-activity-level-3: var(--activity-level-3);
+	--color-activity-level-4: var(--activity-level-4);
+	--color-activity-level-5: var(--activity-level-5);
 }
 
 body {
