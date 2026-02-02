@@ -2,18 +2,19 @@
 
 import clsx from "clsx";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 
-export default function PayTypeToggle() {
-	const searchParams = useSearchParams();
-	const type = searchParams.get("type");
+type PayTypeToggleProps = {
+	isDailyWage: boolean;
+};
+
+export default function PayTypeToggle({ isDailyWage }: PayTypeToggleProps) {
 	return (
 		<div className="flex p-1 md:p-2 bg-main rounded-xl md:text-xl font-medium">
 			<Link
 				href="/"
 				className={clsx(
 					"flex-1 py-2 text-center rounded-md",
-					type === null ? "bg-white text-black" : "text-white",
+					!isDailyWage ? "bg-white text-black" : "text-white",
 				)}
 			>
 				時給から探す
@@ -22,7 +23,7 @@ export default function PayTypeToggle() {
 				href="/?type=dailyWage"
 				className={clsx(
 					"flex-1 py-2 text-center rounded-md",
-					type === "dailyWage" ? "bg-white text-black" : "text-white",
+					isDailyWage ? "bg-white text-black" : "text-white",
 				)}
 			>
 				日給から探す

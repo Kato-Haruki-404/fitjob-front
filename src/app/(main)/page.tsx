@@ -1,37 +1,33 @@
 import Link from "next/link";
 import ActivityLavels from "@/components/top/activityLavel";
 import CategorieGrid from "@/components/top/categorieGrid";
-import PayTypeToggle from "@/components/top/payTypeToggle";
+import WageArea from "@/components/top/wageArea";
+import { appendPayType } from "@/lib/urlUtils";
 
 const linkclass =
 	"flex-1 py-3 px-5 text-center border-2 border-[#D7D7D77D] rounded-lg";
 
-export default function Home() {
+type Props = {
+	searchParams: Promise<{ type?: string }>;
+};
+
+export default async function Home({ searchParams }: Props) {
+	const params = await searchParams;
+	const isDailyWage = params.type === "dailyWage";
+
 	return (
 		<div className="flex flex-col py-15 px-5 md:px-10 gap-10 font-medium max-w-5xl mx-auto">
-			<PayTypeToggle />
-			<CategorieGrid
-				items={[
-					{ label: "1,700円以上", href: "/search?min_wage=1700" },
-					{ label: "1,600円以上", href: "/search?min_wage=1600" },
-					{ label: "1,500円以上", href: "/search?min_wage=1500" },
-					{ label: "1,400円以上", href: "/search?min_wage=1400" },
-					{ label: "1,300円以上", href: "/search?min_wage=1300" },
-					{ label: "1,200円以上", href: "/search?min_wage=1200" },
-					{ label: "1,100円以上", href: "/search?min_wage=1100" },
-					{ label: "1,000円以上", href: "/search?min_wage=1000" },
-				]}
-			/>
+			<WageArea isDailyWage={isDailyWage} />
 			<div className="flex flex-col gap-5">
 				<h2>勤務期間から探す</h2>
 				<div className="flex flex-row gap-5">
-					<Link href="/" className={linkclass}>
+					<Link href={appendPayType("/", isDailyWage)} className={linkclass}>
 						単発
 					</Link>
-					<Link href="/" className={linkclass}>
+					<Link href={appendPayType("/", isDailyWage)} className={linkclass}>
 						短期
 					</Link>
-					<Link href="/" className={linkclass}>
+					<Link href={appendPayType("/", isDailyWage)} className={linkclass}>
 						長期
 					</Link>
 				</div>
@@ -49,6 +45,7 @@ export default function Home() {
 						{ label: "200kcal以上", href: "/search?min_calories=200" },
 						{ label: "100kcal以上", href: "/search?min_calories=100" },
 					]}
+					isDailyWage={isDailyWage}
 				/>
 			</div>
 			<div className="flex flex-col gap-5">
@@ -62,11 +59,12 @@ export default function Home() {
 						{ label: "5,000歩以上", href: "/search?min_stepcount=5000" },
 						{ label: "3,000歩以上", href: "/search?min_stepcount=3000" },
 					]}
+					isDailyWage={isDailyWage}
 				/>
 			</div>
 			<div className="flex flex-col gap-5">
 				<h2>運動量から探す</h2>
-				<ActivityLavels />
+				<ActivityLavels isDailyWage={isDailyWage} />
 			</div>
 		</div>
 	);
