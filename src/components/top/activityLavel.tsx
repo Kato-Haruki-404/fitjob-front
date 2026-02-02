@@ -47,8 +47,8 @@ export function ActivityLavel({
 			href=""
 			className={`p-3 rounded-lg flex flex-row gap-5 justify-between items-center ${bgColor} text-white`}
 		>
-			<div className="flex flex-row gap-2">
-				<h3>{title}</h3>
+			<div className="flex flex-row gap-2 items-center">
+				<h3 className="shrink-0">{title}</h3>
 				<p>{text}</p>
 			</div>
 			<ChevronRight />
