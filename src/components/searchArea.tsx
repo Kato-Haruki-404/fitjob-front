@@ -32,7 +32,7 @@ export default function SearchArea() {
 						}}
 					/>
 				</div>
-				<hr className="h-0.5 border-[#D7D7D7] " />
+				<hr className="h-0.5 border-[#D7D7D7]" />
 				<div className="flex items-center gap-2">
 					<Search size={18} className="shrink-0" />
 					<Input
