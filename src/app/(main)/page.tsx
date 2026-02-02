@@ -4,7 +4,7 @@ import CategoryGrid from "@/components/top/categoryGrid";
 import WageArea from "@/components/top/wageArea";
 import { appendPayType } from "@/lib/urlUtils";
 
-const linkclass =
+const linkClass =
 	"flex-1 py-3 px-5 text-center border-2 border-[#D7D7D77D] rounded-lg";
 
 type Props = {
