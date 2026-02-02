@@ -1,5 +1,61 @@
 import { z } from "zod";
 
+export const PREFECTURES = [
+	"北海道",
+	"青森県",
+	"岩手県",
+	"宮城県",
+	"秋田県",
+	"山形県",
+	"福島県",
+	"茨城県",
+	"栃木県",
+	"群馬県",
+	"埼玉県",
+	"千葉県",
+	"東京都",
+	"神奈川県",
+	"新潟県",
+	"富山県",
+	"石川県",
+	"福井県",
+	"山梨県",
+	"長野県",
+	"岐阜県",
+	"静岡県",
+	"愛知県",
+	"三重県",
+	"滋賀県",
+	"京都府",
+	"大阪府",
+	"兵庫県",
+	"奈良県",
+	"和歌山県",
+	"鳥取県",
+	"島根県",
+	"岡山県",
+	"広島県",
+	"山口県",
+	"徳島県",
+	"香川県",
+	"愛媛県",
+	"高知県",
+	"福岡県",
+	"佐賀県",
+	"長崎県",
+	"熊本県",
+	"大分県",
+	"宮崎県",
+	"鹿児島県",
+	"沖縄県",
+] as const;
+
+export type Prefecture = (typeof PREFECTURES)[number];
+
+export const prefectureSchema = z.enum(PREFECTURES, {
+	error: "都道府県を選択してください",
+});
+
 export const profileSchema = z.object({
 	lastName: z
 		.string()
@@ -42,8 +98,13 @@ export const profileSchema = z.object({
 	gender: z.enum(["male", "female", "other"], {
 		error: "性別を選択してください",
 	}),
-	postalCode: z.string().min(1, { error: "郵便番号を入力してください" }),
-	prefecture: z.string().min(1, { error: "都道府県を入力してください" }),
+	postalCode: z
+		.string()
+		.min(1, { error: "郵便番号を入力してください" })
+		.regex(/^[0-9-]+$/, {
+			message: "郵便番号は数字とハイフンのみで入力してください",
+		}),
+	prefecture: prefectureSchema,
 	address: z.string().min(1, { error: "残りの住所を入力してください" }),
 	phoneNumber: z.string().min(1, { error: "電話番号を入力してください" }),
 	identificationDocument: z.file({
