@@ -2,9 +2,11 @@
 
 import { Input } from "@headlessui/react";
 import { MapPin, Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SearchArea() {
+	const router = useRouter();
 	const [workLocationKeyword, setWorkLocationKeyword] = useState("");
 	const [generalKeyword, setGeneralKeyword] = useState("");
 
@@ -20,11 +22,12 @@ export default function SearchArea() {
 						onChange={(e) => setWorkLocationKeyword(e.target.value)}
 						onKeyDown={(e) => {
 							if (e.key === "Enter") {
-								/* todo: 処理を追加 */
 								if (!workLocationKeyword) {
 									return;
 								}
-								console.log(workLocationKeyword);
+								router.push(
+									`/search?workLocation=${encodeURIComponent(workLocationKeyword)}`,
+								);
 							}
 						}}
 					/>
@@ -39,11 +42,12 @@ export default function SearchArea() {
 						onChange={(e) => setGeneralKeyword(e.target.value)}
 						onKeyDown={(e) => {
 							if (e.key === "Enter") {
-								/* todo: 処理を追加 */
 								if (!generalKeyword) {
 									return;
 								}
-								console.log(generalKeyword);
+								router.push(
+									`/search?keyword=${encodeURIComponent(generalKeyword)}`,
+								);
 							}
 						}}
 					/>
