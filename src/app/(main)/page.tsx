@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: Props) {
 	const isDailyWage = params.type === "dailyWage";
 
 	return (
-		<div className="flex flex-col py-15 px-5 md:px-10 gap-10 font-medium max-w-5xl mx-auto">
+		<div className="flex flex-col py-[60px] px-5 md:px-10 gap-10 font-medium max-w-5xl mx-auto">
 			<WageArea isDailyWage={isDailyWage} />
 			<div className="flex flex-col gap-5">
 				<h2>勤務期間から探す</h2>
