@@ -45,7 +45,7 @@ export default function ActivityLavels({
 	);
 }
 
-export function ActivityLevel({
+function ActivityLevel({
 	bgColor,
 	title,
 	text,
