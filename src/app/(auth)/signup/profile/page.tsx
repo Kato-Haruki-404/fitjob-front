@@ -45,6 +45,11 @@ export default function ProfilePage() {
 	const isSubmitting = form.state.isSubmitting;
 	const isSubmitted = form.state.isSubmitted;
 
+	const now = new Date();
+	const nowYear = now.getFullYear();
+	const nowMonth = now.getMonth() + 1;
+	const nowDate = now.getDate();
+
 	return (
 		<AuthLayout title="プロフィール作成" maxWidth="2xl">
 			<form
@@ -126,7 +131,7 @@ export default function ProfilePage() {
 										field={field}
 										isSubmitted={isSubmitted}
 										disabled={isSubmitting}
-										placeholder="1950"
+										placeholder={nowYear.toString()}
 									/>
 								)}
 							</form.Field>
@@ -136,7 +141,7 @@ export default function ProfilePage() {
 										field={field}
 										isSubmitted={isSubmitted}
 										disabled={isSubmitting}
-										placeholder="1"
+										placeholder={nowMonth.toString()}
 									/>
 								)}
 							</form.Field>
@@ -146,7 +151,7 @@ export default function ProfilePage() {
 										field={field}
 										isSubmitted={isSubmitted}
 										disabled={isSubmitting}
-										placeholder="1"
+										placeholder={nowDate.toString()}
 									/>
 								)}
 							</form.Field>
