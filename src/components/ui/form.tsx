@@ -12,7 +12,7 @@ type FieldProps = ComponentPropsWithoutRef<typeof HeadlessField>;
 type LabelProps = ComponentPropsWithoutRef<typeof HeadlessLabel>;
 type InputProps = ComponentPropsWithoutRef<typeof HeadlessInput> &
 	React.InputHTMLAttributes<HTMLInputElement>;
-type SelectProps = ComponentPropsWithoutRef<typeof HeadlessInput> &
+type SelectProps = ComponentPropsWithoutRef<typeof HeadlessSelect> &
 	React.SelectHTMLAttributes<HTMLSelectElement>;
 type TextareaProps = ComponentPropsWithoutRef<typeof HeadlessTextarea> &
 	React.TextareaHTMLAttributes<HTMLTextAreaElement>;
