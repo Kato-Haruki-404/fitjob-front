@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-type PagenationProps = {
+type PaginationProps = {
 	currentPage: number;
 	totalPages: number;
 	onPageChangeAction: (page: number) => void;
@@ -39,12 +39,12 @@ function buildPageItems(_currentPage: number, totalPages: number): PageItem[] {
 	return [firstPage, currentPage - 1, currentPage, currentPage + 1, lastPage];
 }
 
-export default function Pagenation({
+export default function Pagination({
 	currentPage,
 	totalPages,
 	onPageChangeAction,
 	className,
-}: PagenationProps) {
+}: PaginationProps) {
 	const safeTotalPages = Math.max(0, totalPages);
 	if (safeTotalPages === 0) {
 		return null;
