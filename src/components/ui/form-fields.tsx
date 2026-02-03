@@ -1,5 +1,5 @@
 import type { AnyFieldApi } from "@tanstack/react-form";
-import { Field, Input, Label, Select, Textarea } from "./form";
+import { Field, Input, Label, Select, Textarea } from "./formItems";
 
 type BaseFieldProps = {
 	label?: string;
