@@ -16,6 +16,7 @@ export default function Footer() {
 						<li>
 							<Link href="/favorite">お気に入り</Link>
 						</li>
+						<li aria-hidden="true" className="h-4 md:h-5  w-0.5 bg-white" />
 						<li>
 							<Link href="/history">閲覧履歴</Link>
 						</li>
