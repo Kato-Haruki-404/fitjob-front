@@ -18,11 +18,7 @@ export default function Footer() {
 						</li>
 						<li aria-hidden="true" className="h-4 md:h-5  w-0.5 bg-white" />
 						<li>
-							<Link href="mypage">マイページ</Link>
-						</li>
-						<li aria-hidden="true" className="h-4 md:h-5  w-0.5 bg-white" />
-						<li>
-							<Link href="/">求人募集</Link>
+							<Link href="/postingrequest">求人申請</Link>
 						</li>
 					</ul>
 				</nav>
