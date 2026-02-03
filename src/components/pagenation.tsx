@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 type PagenationProps = {
 	currentPage: number;
 	totalPages: number;
-	onPageChange: (page: number) => void;
+	onPageChangeAction: (page: number) => void;
 	className?: string;
 };
 
@@ -42,7 +42,7 @@ function buildPageItems(_currentPage: number, totalPages: number): PageItem[] {
 export default function Pagenation({
 	currentPage,
 	totalPages,
-	onPageChange,
+	onPageChangeAction,
 	className,
 }: PagenationProps) {
 	const safeTotalPages = Math.max(0, totalPages);
@@ -77,7 +77,7 @@ export default function Pagenation({
 				)}
 				disabled={isPrevDisabled}
 				aria-label="Previous page"
-				onClick={() => onPageChange(safeCurrentPage - 1)}
+				onClick={() => onPageChangeAction(safeCurrentPage - 1)}
 			>
 				<ChevronLeft size={24} />
 			</button>
@@ -97,7 +97,7 @@ export default function Pagenation({
 						)}
 						disabled={isCurrent}
 						aria-current={isCurrent ? "page" : undefined}
-						onClick={() => onPageChange(item)}
+						onClick={() => onPageChangeAction(item)}
 					>
 						{item}
 					</button>
@@ -112,7 +112,7 @@ export default function Pagenation({
 				)}
 				disabled={isNextDisabled}
 				aria-label="Next page"
-				onClick={() => onPageChange(safeCurrentPage + 1)}
+				onClick={() => onPageChangeAction(safeCurrentPage + 1)}
 			>
 				<ChevronRight size={24} />
 			</button>
