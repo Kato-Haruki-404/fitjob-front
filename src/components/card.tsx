@@ -7,7 +7,6 @@ type CardProps = {
 	title: string;
 	company: string;
 	wage: string;
-	wageUnit: string;
 	location: string;
 	imageSrc: string;
 	imageAlt: string;
@@ -21,7 +20,6 @@ export default function Card({
 	title,
 	company,
 	wage,
-	wageUnit,
 	location,
 	imageSrc,
 	imageAlt,
@@ -66,7 +64,7 @@ export default function Card({
 								<BadgeJapaneseYen size={20} />
 								<p className="text-black font-medium leading-none">
 									<span className="text-base">{wage} </span>
-									<span className="text-sm">{wageUnit}</span>
+									<span className="text-sm">円</span>
 								</p>
 							</div>
 							<div className="flex items-center gap-2.5">
