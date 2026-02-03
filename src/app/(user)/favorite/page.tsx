@@ -3,7 +3,7 @@
 import { Bookmark, History } from "lucide-react";
 import { useState } from "react";
 import Card from "@/components/card";
-import Pagenation from "@/components/pagenation";
+import Pagination from "@/components/pagination";
 import WideToggleLink from "@/components/ui/wideToggle";
 
 const DUMMY_CARDS = Array.from({ length: 60 }, (_, index) => {
@@ -52,7 +52,7 @@ export default function FavoritePage() {
 						<Card key={card.id} {...card} />
 					))}
 				</div>
-				<Pagenation
+				<Pagination
 					currentPage={currentPage}
 					totalPages={totalPages}
 					onPageChangeAction={(page) => setCurrentPage(page)}
