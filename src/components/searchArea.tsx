@@ -2,13 +2,17 @@
 
 import { Input } from "@headlessui/react";
 import { MapPin, Search } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function SearchArea() {
 	const router = useRouter();
+	const pathname = usePathname();
 	const [workLocationKeyword, setWorkLocationKeyword] = useState("");
 	const [generalKeyword, setGeneralKeyword] = useState("");
+	const searchBase = pathname?.startsWith("/search/dailywage")
+		? "/search/dailywage"
+		: "/search/hourlywage";
 
 	return (
 		<div className="py-10 px-5 md:p-10 bg-main">
@@ -26,7 +30,7 @@ export default function SearchArea() {
 									return;
 								}
 								router.push(
-									`/search?workLocation=${encodeURIComponent(workLocationKeyword)}`,
+									`${searchBase}?workLocation=${encodeURIComponent(workLocationKeyword)}`,
 								);
 							}
 						}}
@@ -46,7 +50,7 @@ export default function SearchArea() {
 									return;
 								}
 								router.push(
-									`/search?keyword=${encodeURIComponent(generalKeyword)}`,
+									`${searchBase}?keyword=${encodeURIComponent(generalKeyword)}`,
 								);
 							}
 						}}
