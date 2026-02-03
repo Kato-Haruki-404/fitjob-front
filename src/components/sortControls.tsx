@@ -1,3 +1,5 @@
+"use client";
+
 import { type ChangeEvent, useState } from "react";
 
 type SortValue = "new" | "calories" | "intensity";
