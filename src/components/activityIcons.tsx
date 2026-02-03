@@ -1,5 +1,4 @@
 import Image from "next/image";
-import activityIcon from "@/../public/twemoji-flexed-biceps.svg";
 
 type ActivityIconsProps = {
 	level: number;
@@ -14,7 +13,7 @@ export default function ActivityIcons({ level }: ActivityIconsProps) {
 			{activityKeys.map((key, index) => (
 				<Image
 					key={`activity-${key}`}
-					src={activityIcon}
+					src="/twemoji-flexed-biceps.svg"
 					alt=""
 					aria-hidden="true"
 					width={24}

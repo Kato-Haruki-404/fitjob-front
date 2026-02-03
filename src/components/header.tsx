@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import logo from "@/../public/logo.svg";
 import Button from "@/components/ui/button";
 
 export default function Header() {
@@ -13,7 +12,7 @@ export default function Header() {
 	return (
 		<header className="flex items-center justify-between px-10 h-20 shrink-0">
 			<Link href="/" className="text-2xl font-bold">
-				<Image src={logo.src} width={140} height={31} alt="FitJob" />
+				<Image src="/logo.svg" width={140} height={31} alt="FitJob" />
 			</Link>
 			<nav className="hidden md:flex items-center gap-10 shrink-0">
 				<div className="flex items-center gap-5">
