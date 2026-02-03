@@ -1,14 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import ActivityLevels from "@/components/search/activityLevel";
 import CategoryGrid from "@/components/search/categoryGrid";
 import WideToggle from "@/components/ui/wideToggle";
 
-type Props = {
-	searchParams: Promise<{ type?: string }>;
-};
-
-export default async function Home({ searchParams }: Props) {
-	const params = await searchParams;
-	const isDailyWage = params.type === "dailyWage";
+export default function Home() {
+	const [isDailyWage, setIsDailyWage] = useState(false);
 
 	return (
 		<div className="py-15 px-5 md:px-10">
@@ -16,13 +14,15 @@ export default async function Home({ searchParams }: Props) {
 				<WideToggle
 					toggle1={{
 						text: "時給から探す",
-						href: "/search",
+						href: "/search/hourlywage",
 					}}
 					toggle2={{
 						text: "日給から探す",
-						href: "/search?type=dailyWage",
+						href: "/search/dailywage",
 					}}
 					activeToggle={isDailyWage ? "toggle2" : "toggle1"}
+					onToggle1={() => setIsDailyWage(false)}
+					onToggle2={() => setIsDailyWage(true)}
 				/>
 				<CategoryGrid
 					items={
@@ -54,14 +54,30 @@ export default async function Home({ searchParams }: Props) {
 					<h2>消費カロリーから探す</h2>
 					<CategoryGrid
 						items={[
-							{ label: "800kcal以上", href: "/search?min_calories=800" },
-							{ label: "700kcal以上", href: "/search?min_calories=700" },
-							{ label: "600kcal以上", href: "/search?min_calories=600" },
-							{ label: "500kcal以上", href: "/search?min_calories=500" },
-							{ label: "400kcal以上", href: "/search?min_calories=400" },
-							{ label: "300kcal以上", href: "/search?min_calories=300" },
-							{ label: "200kcal以上", href: "/search?min_calories=200" },
-							{ label: "100kcal以上", href: "/search?min_calories=100" },
+							{
+								label: "600~699kcal/h",
+								href: "/search?min_calories=600&max_calories=699",
+							},
+							{
+								label: "500~599kcal/h",
+								href: "/search?min_calories=500&max_calories=599",
+							},
+							{
+								label: "400~499kcal/h",
+								href: "/search?min_calories=400&max_calories=499",
+							},
+							{
+								label: "300~499kcal/h",
+								href: "/search?min_calories=300&max_calories=499",
+							},
+							{
+								label: "200~399kcal/h",
+								href: "/search?min_calories=200&max_calories=399",
+							},
+							{
+								label: "100~199kcal/h",
+								href: "/search?min_calories=100&max_calories=199",
+							},
 						]}
 						isDailyWage={isDailyWage}
 					/>
@@ -70,18 +86,36 @@ export default async function Home({ searchParams }: Props) {
 					<h2>歩数から探す</h2>
 					<CategoryGrid
 						items={[
-							{ label: "20,000歩以上", href: "/search?min_stepcount=20000" },
-							{ label: "15,000歩以上", href: "/search?min_stepcount=15000" },
-							{ label: "10,000歩以上", href: "/search?min_stepcount=10000" },
-							{ label: "8,000歩以上", href: "/search?min_stepcount=8000" },
-							{ label: "5,000歩以上", href: "/search?min_stepcount=5000" },
-							{ label: "3,000歩以上", href: "/search?min_stepcount=3000" },
+							{
+								label: "5,000~5,999歩/h",
+								href: "/search?min_stepcount=5000&max_stepcount=5999",
+							},
+							{
+								label: "4,000~4,999歩/h",
+								href: "/search?min_stepcount=4000&max_stepcount=4999",
+							},
+							{
+								label: "3,000~3,999歩/h",
+								href: "/search?min_stepcount=3000&max_stepcount=3999",
+							},
+							{
+								label: "2,000~2,999歩/h",
+								href: "/search?min_stepcount=2000&max_stepcount=2999",
+							},
+							{
+								label: "1,000~1,999歩/h",
+								href: "/search?min_stepcount=1000&max_stepcount=1999",
+							},
+							{
+								label: "1~999歩/h",
+								href: "/search?min_stepcount=1&max_stepcount=999",
+							},
 						]}
 						isDailyWage={isDailyWage}
 					/>
 				</div>
 				<div className="flex flex-col gap-5">
-					<h2>運動量から探す</h2>
+					<h2>運動レベル</h2>
 					<ActivityLevels isDailyWage={isDailyWage} />
 				</div>
 			</div>
