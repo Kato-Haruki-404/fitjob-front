@@ -3,6 +3,7 @@
 import { Bookmark, CircleUserRound, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import logo from "@/../public/logo.svg";
 import Button from "@/components/ui/button";
@@ -14,7 +15,7 @@ export default function Header() {
 			<Link href="/" className="text-2xl font-bold">
 				<Image src={logo.src} width={140} height={31} alt="FitJob" />
 			</Link>
-			<nav className="hidden md:flex items-center gap-10">
+			<nav className="hidden md:flex items-center gap-10 shrink-0">
 				<div className="flex items-center gap-10">
 					<Link href="/favorite" className="flex font-bold items-center gap-2">
 						<Bookmark size={18} />
@@ -42,5 +43,16 @@ export default function Header() {
 				{isOpen ? <X size={32} /> : <Menu size={32} />}
 			</button>
 		</header>
+	);
+}
+
+export function GoBackHeader() {
+	const router = useRouter();
+	return (
+		<div className="flex justify-center px-10 py-5 bg-main">
+			<div className="max-w-5xl w-full">
+				<Button variant="back" onClick={() => router.back()} />
+			</div>
+		</div>
 	);
 }
