@@ -55,7 +55,7 @@ export default function FavoritePage() {
 				<Pagenation
 					currentPage={currentPage}
 					totalPages={totalPages}
-					onPageChange={(page) => setCurrentPage(page)}
+					onPageChangeAction={(page) => setCurrentPage(page)}
 				/>
 			</div>
 		</div>
