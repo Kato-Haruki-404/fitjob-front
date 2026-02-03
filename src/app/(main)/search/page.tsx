@@ -67,12 +67,12 @@ export default function Home() {
 								href: "/search?min_calories=400&max_calories=499",
 							},
 							{
-								label: "300~499kcal/h",
-								href: "/search?min_calories=300&max_calories=499",
+								label: "300~399kcal/h",
+								href: "/search?min_calories=300&max_calories=399",
 							},
 							{
-								label: "200~399kcal/h",
-								href: "/search?min_calories=200&max_calories=399",
+								label: "200~299kcal/h",
+								href: "/search?min_calories=200&max_calories=299",
 							},
 							{
 								label: "100~199kcal/h",
