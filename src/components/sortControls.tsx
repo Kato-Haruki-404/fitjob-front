@@ -7,14 +7,14 @@ type SortValue = "new" | "calories" | "intensity";
 type SortControlsProps = {
 	value?: SortValue;
 	defaultValue?: SortValue;
-	onSort?: (value: SortValue) => void;
+	onSortAction?: (value: SortValue) => void;
 	name?: string;
 };
 
 export default function SortControls({
 	value,
 	defaultValue = "new",
-	onSort,
+	onSortAction,
 	name = "sort",
 }: SortControlsProps) {
 	const isControlled = value !== undefined;
@@ -26,7 +26,7 @@ export default function SortControls({
 		if (!isControlled) {
 			setInternalValue(nextValue);
 		}
-		onSort?.(nextValue);
+		onSortAction?.(nextValue);
 	};
 
 	return (
