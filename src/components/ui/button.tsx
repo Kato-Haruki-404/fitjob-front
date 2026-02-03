@@ -1,10 +1,11 @@
 import { Button as HeadlessButton } from "@headlessui/react";
 import { Slot } from "@radix-ui/react-slot";
 import { clsx } from "clsx";
+import { ChevronLeft } from "lucide-react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
-type Variant = "primary" | "outline" | "link" | "ghost";
+type Variant = "primary" | "outline" | "link" | "ghost" | "back";
 
 type SharedButtonProps = {
 	variant?: Variant;
@@ -34,11 +35,13 @@ export default function Button(props: ButtonProps) {
 	const { variant = "primary", className } = props;
 	const baseClasses =
 		"py-3 px-10 font-bold text-base rounded-xl hover:opacity-70 cursor-pointer transition-all duration-200 ease-in-out disabled:opacity-60 disabled:cursor-not-allowed";
+	const isBackVariant = variant === "back";
 	const variantClasses = {
 		primary: "bg-main text-white",
 		outline: "outline -outline-offset-1",
 		link: "underline",
 		ghost: "",
+		back: "bg-background font-medium inline-flex items-center gap-3 px-8",
 	}[variant];
 
 	const mergedClassName = twMerge(clsx(baseClasses, variantClasses, className));
@@ -71,9 +74,16 @@ export default function Button(props: ButtonProps) {
 	void _asChild;
 	void _variant;
 	void _className;
+	const backContent = (
+		<>
+			<ChevronLeft aria-hidden="true" className="size-6" />
+			<span>もどる</span>
+		</>
+	);
+	const content = isBackVariant && children == null ? backContent : children;
 	return (
 		<HeadlessButton className={mergedClassName} {...rest}>
-			{children}
+			{content}
 		</HeadlessButton>
 	);
 }
