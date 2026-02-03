@@ -22,7 +22,7 @@ const DUMMY_CARDS = Array.from({ length: 60 }, (_, index) => {
 	};
 });
 
-export default function FavoritePage() {
+export default function HistoryPage() {
 	const itemsPerPage = 4;
 	const [currentPage, setCurrentPage] = useState(1);
 	const totalPages = Math.max(1, Math.ceil(DUMMY_CARDS.length / itemsPerPage));
