@@ -1,9 +1,35 @@
-import { Bookmark, ChevronLeft, ChevronRight, History } from "lucide-react";
-import Link from "next/link";
+"use client";
+
+import { Bookmark, History } from "lucide-react";
+import { useState } from "react";
 import Card from "@/components/card";
+import Pagenation from "@/components/pagenation";
 import WideToggleLink from "@/components/ui/wideToggle";
 
+const DUMMY_CARDS = Array.from({ length: 60 }, (_, index) => {
+	const id = index + 1;
+	return {
+		id,
+		title: `トレーニングジム スタッフ ${id}`,
+		company: `フィットワークス ${id}`,
+		wage: "1,200",
+		location: "東京都渋谷区",
+		imageSrc: "/twemoji-flexed-biceps.svg",
+		imageAlt: "求人画像",
+		activityLevel: (id % 5) + 1,
+		bookmarkAriaLabel: "お気に入りに追加",
+		link: `/jobs/${id}`,
+	};
+});
+
 export default function FavoritePage() {
+	const itemsPerPage = 4;
+	const [currentPage, setCurrentPage] = useState(1);
+	const totalPages = Math.max(1, Math.ceil(DUMMY_CARDS.length / itemsPerPage));
+
+	const startIndex = (currentPage - 1) * itemsPerPage;
+	const visibleCards = DUMMY_CARDS.slice(startIndex, startIndex + itemsPerPage);
+
 	return (
 		<div className="flex flex-col h-full items-center px-10 py-15">
 			<div className="max-w-5xl w-full h-full flex flex-col gap-10">
@@ -20,103 +46,17 @@ export default function FavoritePage() {
 						icon: <History size={24} />,
 					}}
 				/>
-				<div className="flex flex-row items-center justify-end gap-5">
-					<span className="font-medium">並び替え</span>
-					<hr className="w-0.5 h-4 bg-black" />
-					<label className="flex items-center">
-						<input
-							className="peer appearance-none"
-							type="radio"
-							name="sort"
-							value="new"
-							defaultChecked
-						/>
-						<span className="peer-checked:font-bold">新着順</span>
-					</label>
-					<label className="flex items-center">
-						<input
-							className="peer appearance-none"
-							type="radio"
-							name="sort"
-							value="calories"
-						/>
-						<span className="peer-checked:font-bold">消費カロリー</span>
-					</label>
-					<label className="flex items-center">
-						<input
-							className="peer appearance-none"
-							type="radio"
-							name="sort"
-							value="intensity"
-						/>
-						<span className="peer-checked:font-bold">運動強度</span>
-					</label>
+
+				<div className="flex flex-col gap-6">
+					{visibleCards.map((card) => (
+						<Card key={card.id} {...card} />
+					))}
 				</div>
-
-				{/* お気に入りリスト（ここにコンテンツが入る） */}
-				<Card />
-
-				{/* ページネーション */}
-				<nav aria-label="ページネーション" className="flex justify-center">
-					<ul className="flex items-center gap-2">
-						<li>
-							<Link
-								href="/favorite?page=1"
-								className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-100"
-								aria-label="前のページ"
-							>
-								<ChevronLeft size={20} />
-							</Link>
-						</li>
-						<li>
-							<Link
-								href="/favorite?page=1"
-								className="flex items-center justify-center w-10 h-10 rounded-md bg-main text-white font-medium"
-								aria-current="page"
-							>
-								1
-							</Link>
-						</li>
-						<li>
-							<Link
-								href="/favorite?page=2"
-								className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-100"
-							>
-								2
-							</Link>
-						</li>
-						<li>
-							<Link
-								href="/favorite?page=3"
-								className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-100"
-							>
-								3
-							</Link>
-						</li>
-						<li>
-							<span className="flex items-center justify-center w-10 h-10">
-								...
-							</span>
-						</li>
-						<li>
-							<Link
-								href="/favorite?page=10"
-								className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-100"
-							>
-								10
-							</Link>
-						</li>
-						<li>
-							<Link
-								href="/favorite?page=2"
-								className="flex items-center justify-center w-10 h-10 rounded-md hover:bg-gray-100"
-								aria-label="次のページ"
-							>
-								<ChevronRight size={20} />
-							</Link>
-						</li>
-					</ul>
-				</nav>
+				<Pagenation
+					currentPage={currentPage}
+					totalPages={totalPages}
+					onPageChange={(page) => setCurrentPage(page)}
+				/>
 			</div>
 		</div>
 	);
