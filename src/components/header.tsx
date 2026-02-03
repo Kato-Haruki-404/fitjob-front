@@ -14,7 +14,7 @@ export default function Header() {
 			<Link href="/" className="text-2xl font-bold">
 				<Image src={logo.src} width={140} height={31} alt="FitJob" />
 			</Link>
-			<nav className="hidden md:flex items-center gap-10">
+			<nav className="hidden md:flex items-center gap-10 shrink-0">
 				<div className="flex items-center gap-10">
 					<Link href="/favorite" className="flex font-bold items-center gap-2">
 						<Bookmark size={18} />
