@@ -6,7 +6,7 @@ type ActivityLevelsProps = {
 	isDailyWage?: boolean;
 };
 
-export default function ActivityLavels({
+export default function ActivityLevels({
 	isDailyWage = false,
 }: ActivityLevelsProps) {
 	return (
