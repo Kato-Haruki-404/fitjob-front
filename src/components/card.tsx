@@ -29,55 +29,61 @@ export default function Card({
 	className,
 }: CardProps) {
 	const rootClassName =
-		"flex flex-col sm:flex-row gap-5 items-start bg-white border border-[rgba(215,215,215,0.49)] rounded-[20px] shadow-card p-5 overflow-hidden" +
+		"relative flex flex-col sm:flex-row gap-5 items-start bg-white border border-[rgba(215,215,215,0.49)] rounded-[20px] shadow-card p-5 overflow-hidden" +
 		(className ? ` ${className}` : "");
+	const linkLabel = `${title}の詳細を見る`;
 	return (
-		<Link href={link}>
-			<article className={rootClassName}>
-				<div className="bg-[#cecece] w-full sm:w-50 aspect-10/7 shrink-0 overflow-hidden">
-					<Image
-						src={imageSrc}
-						alt={imageAlt}
-						width={200}
-						height={140}
-						className="h-full w-full object-cover"
-						sizes="(min-width: 640px) 200px, 100vw"
-					/>
-				</div>
-				<div className="flex flex-1 flex-col justify-between gap-5 self-stretch">
-					<div className="flex flex-col gap-5">
-						<div className="flex items-start justify-between gap-4">
-							<div className="flex flex-col gap-2">
-								<h3 className="text-xl font-bold text-foreground">{title}</h3>
-								<p className="text-sm text-[#757575]">{company}</p>
-							</div>
-							<button
-								type="button"
-								aria-label={bookmarkAriaLabel}
-								className="shrink-0"
-							>
-								<Bookmark size={28} />
-							</button>
+		<article className={rootClassName}>
+			<Link
+				href={link}
+				aria-label={linkLabel}
+				className="absolute inset-0 z-10 rounded-[20px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+			>
+				<span className="sr-only">{linkLabel}</span>
+			</Link>
+			<div className="bg-[#cecece] w-full sm:w-50 aspect-10/7 shrink-0 overflow-hidden">
+				<Image
+					src={imageSrc}
+					alt={imageAlt}
+					width={200}
+					height={140}
+					className="h-full w-full object-cover"
+					sizes="(min-width: 640px) 200px, 100vw"
+				/>
+			</div>
+			<div className="flex flex-1 flex-col justify-between gap-5 self-stretch">
+				<div className="flex flex-col gap-5">
+					<div className="flex items-start justify-between gap-4">
+						<div className="flex flex-col gap-2">
+							<h3 className="text-xl font-bold text-foreground">{title}</h3>
+							<p className="text-sm text-[#757575]">{company}</p>
 						</div>
-						<div className="flex flex-col gap-4 sm:flex-row sm:gap-10">
-							<div className="flex items-center gap-2.5">
-								<BadgeJapaneseYen size={20} />
-								<p className="text-black font-medium leading-none">
-									<span className="text-base">{wage} </span>
-									<span className="text-sm">円</span>
-								</p>
-							</div>
-							<div className="flex items-center gap-2.5">
-								<MapPin size={20} />
-								<p className="text-base font-medium text-foreground">
-									{location}
-								</p>
-							</div>
+						<button
+							type="button"
+							aria-label={bookmarkAriaLabel}
+							className="relative z-20 shrink-0"
+						>
+							<Bookmark size={28} />
+						</button>
+					</div>
+					<div className="flex flex-col gap-4 sm:flex-row sm:gap-10">
+						<div className="flex items-center gap-2.5">
+							<BadgeJapaneseYen size={20} />
+							<p className="text-black font-medium leading-none">
+								<span className="text-base">{wage} </span>
+								<span className="text-sm">円</span>
+							</p>
+						</div>
+						<div className="flex items-center gap-2.5">
+							<MapPin size={20} />
+							<p className="text-base font-medium text-foreground">
+								{location}
+							</p>
 						</div>
 					</div>
-					<ActivityIcons level={activityLevel} />
 				</div>
-			</article>
-		</Link>
+				<ActivityIcons level={activityLevel} />
+			</div>
+		</article>
 	);
 }
