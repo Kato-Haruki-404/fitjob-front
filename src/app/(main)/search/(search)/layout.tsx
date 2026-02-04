@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Children } from "react";
 import ActivityIcons from "@/components/activityIcons";
 import Card from "@/components/card";
