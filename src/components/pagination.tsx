@@ -1,13 +1,13 @@
-"use client";
-
 import clsx from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 type PaginationProps = {
 	currentPage: number;
 	totalPages: number;
-	onPageChangeAction: (page: number) => void;
+	baseUrl: string;
+	searchParams?: Record<string, string | string[] | undefined>;
 	className?: string;
 };
 
@@ -39,10 +39,38 @@ function buildPageItems(_currentPage: number, totalPages: number): PageItem[] {
 	return [firstPage, currentPage - 1, currentPage, currentPage + 1, lastPage];
 }
 
+function buildPageUrl(
+	baseUrl: string,
+	page: number,
+	searchParams?: Record<string, string | string[] | undefined>,
+): string {
+	const params = new URLSearchParams();
+
+	if (searchParams) {
+		for (const [key, value] of Object.entries(searchParams)) {
+			if (key === "page") continue;
+			if (value === undefined) continue;
+
+			if (Array.isArray(value)) {
+				for (const v of value) {
+					params.append(key, v);
+				}
+			} else {
+				params.append(key, value);
+			}
+		}
+	}
+
+	params.set("page", page.toString());
+
+	return `${baseUrl}?${params.toString()}`;
+}
+
 export default function Pagination({
 	currentPage,
 	totalPages,
-	onPageChangeAction,
+	baseUrl,
+	searchParams,
 	className,
 }: PaginationProps) {
 	const safeTotalPages = Math.max(0, totalPages);
@@ -68,54 +96,80 @@ export default function Pagination({
 			)}
 			aria-label="Pagination"
 		>
-			<button
-				type="button"
-				className={clsx(
-					baseItemClassName,
-					inactiveItemClassName,
-					isPrevDisabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
-				)}
-				disabled={isPrevDisabled}
-				aria-label="Previous page"
-				onClick={() => onPageChangeAction(safeCurrentPage - 1)}
-			>
-				<ChevronLeft size={24} />
-			</button>
+			{isPrevDisabled ? (
+				<span
+					className={clsx(
+						baseItemClassName,
+						inactiveItemClassName,
+						"opacity-40 cursor-not-allowed",
+					)}
+				>
+					<ChevronLeft size={24} />
+				</span>
+			) : (
+				<Link
+					href={buildPageUrl(baseUrl, safeCurrentPage - 1, searchParams)}
+					className={clsx(
+						baseItemClassName,
+						inactiveItemClassName,
+						"cursor-pointer",
+					)}
+					aria-label="Previous page"
+				>
+					<ChevronLeft size={24} />
+				</Link>
+			)}
 			{items.map((item) => {
 				const itemKey = `page-${item}`;
 				const isCurrent = item === safeCurrentPage;
-				return (
-					<button
+				return isCurrent ? (
+					<span
 						key={itemKey}
-						type="button"
 						className={clsx(
 							baseItemClassName,
-							isCurrent
-								? "bg-main text-white border-2 border-transparent"
-								: inactiveItemClassName,
-							isCurrent ? "cursor-default" : "cursor-pointer",
+							"bg-main text-white border-2 border-transparent cursor-default",
 						)}
-						disabled={isCurrent}
-						aria-current={isCurrent ? "page" : undefined}
-						onClick={() => onPageChangeAction(item)}
+						aria-current="page"
 					>
 						{item}
-					</button>
+					</span>
+				) : (
+					<Link
+						key={itemKey}
+						href={buildPageUrl(baseUrl, item, searchParams)}
+						className={clsx(
+							baseItemClassName,
+							inactiveItemClassName,
+							"cursor-pointer",
+						)}
+					>
+						{item}
+					</Link>
 				);
 			})}
-			<button
-				type="button"
-				className={clsx(
-					baseItemClassName,
-					inactiveItemClassName,
-					isNextDisabled ? "opacity-40 cursor-not-allowed" : "cursor-pointer",
-				)}
-				disabled={isNextDisabled}
-				aria-label="Next page"
-				onClick={() => onPageChangeAction(safeCurrentPage + 1)}
-			>
-				<ChevronRight size={24} />
-			</button>
+			{isNextDisabled ? (
+				<span
+					className={clsx(
+						baseItemClassName,
+						inactiveItemClassName,
+						"opacity-40 cursor-not-allowed",
+					)}
+				>
+					<ChevronRight size={24} />
+				</span>
+			) : (
+				<Link
+					href={buildPageUrl(baseUrl, safeCurrentPage + 1, searchParams)}
+					className={clsx(
+						baseItemClassName,
+						inactiveItemClassName,
+						"cursor-pointer",
+					)}
+					aria-label="Next page"
+				>
+					<ChevronRight size={24} />
+				</Link>
+			)}
 		</nav>
 	);
 }
