@@ -90,6 +90,7 @@ export default function Card({
 					height={140}
 					className="h-full w-full object-cover"
 					sizes="(min-width: 640px) 200px, 100vw"
+					unoptimized={true}
 				/>
 			</div>
 			<div className="flex flex-1 flex-col justify-between gap-5 self-stretch">

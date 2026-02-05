@@ -1,9 +1,9 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
+import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback } from "react";
-import ActivityIcons from "@/components/activityIcons";
 
 const tagItems = [
 	"歩く時間が多い",
@@ -150,10 +150,56 @@ type SearchSidebarContentProps = {
 };
 
 function SearchSidebarContent({ total }: SearchSidebarContentProps) {
+	const router = useRouter();
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const isDailyWage = pathname.includes("dailywage");
 	const wageOptions = isDailyWage ? dailyWageOptions : hourlyWageOptions;
 	const wageLabel = isDailyWage ? "日給" : "時給";
+	const selectedKeywords = new Set([
+		...searchParams.getAll("keyword"),
+		...searchParams.getAll("keyword[]"),
+	]);
+	const selectedExerciseLevels = new Set([
+		...searchParams.getAll("exercise_levels"),
+		...searchParams.getAll("exercise_levels[]"),
+	]);
+	const selectedExerciseLevel = Math.max(
+		0,
+		...Array.from(selectedExerciseLevels)
+			.map(Number)
+			.filter((level) => Number.isFinite(level)),
+	);
+
+	const applyArrayParams = (name: string, values: string[]) => {
+		const params = new URLSearchParams(searchParams.toString());
+		params.delete(name);
+		params.delete(`${name}[]`);
+		for (const value of values) {
+			params.append(name, value);
+		}
+		params.delete("page");
+		const queryString = params.toString();
+		router.push(queryString ? `${pathname}?${queryString}` : pathname);
+	};
+
+	const handleTagToggle = (tag: string) => {
+		const nextKeywords = new Set(selectedKeywords);
+		if (nextKeywords.has(tag)) {
+			nextKeywords.delete(tag);
+		} else {
+			nextKeywords.add(tag);
+		}
+		applyArrayParams("keyword", Array.from(nextKeywords));
+	};
+
+	const handleExerciseLevelSelect = (level: number) => {
+		if (level === selectedExerciseLevel) {
+			applyArrayParams("exercise_levels", []);
+			return;
+		}
+		applyArrayParams("exercise_levels", [String(level)]);
+	};
 
 	return (
 		<aside className="flex w-full flex-col gap-10 rounded-[20px] border border-[#d7d7d7] bg-white px-5 py-8 shadow-card lg:w-70 lg:sticky lg:top-5 lg:self-start lg:max-h-[calc(100vh-40px)] lg:overflow-y-auto">
@@ -191,19 +237,48 @@ function SearchSidebarContent({ total }: SearchSidebarContentProps) {
 			<div className="h-0.5 w-full bg-[#d7d7d7]" />
 			<div className="flex flex-col gap-5">
 				<span className="text-base font-bold text-foreground">運動レベル</span>
-				<ActivityIcons level={1} />
+				<div className="flex items-center gap-2">
+					{[1, 2, 3, 4, 5].map((level) => {
+						const isActive = level <= selectedExerciseLevel;
+						return (
+							<button
+								key={`exercise-${level}`}
+								type="button"
+								onClick={() => handleExerciseLevelSelect(level)}
+								className="rounded-[6px] border border-transparent p-1 transition hover:bg-[#f9fafb]"
+								aria-label={`運動レベル${level}`}
+							>
+								<Image
+									src="/twemoji-flexed-biceps.svg"
+									alt=""
+									aria-hidden="true"
+									width={24}
+									height={24}
+									unoptimized={true}
+									className={`h-6 w-6 ${isActive ? "" : "opacity-30"}`}
+								/>
+							</button>
+						);
+					})}
+				</div>
 			</div>
 			<div className="h-0.5 w-full bg-[#d7d7d7]" />
 			<div className="flex flex-col gap-5">
 				<span className="text-base font-bold text-foreground">タグ</span>
 				<div className="flex flex-wrap gap-2">
 					{tagItems.map((tag) => (
-						<span
+						<button
 							key={tag}
-							className="rounded-[5px] border border-[#d7d7d7] bg-white px-2 py-1 text-xs font-medium text-foreground"
+							type="button"
+							onClick={() => handleTagToggle(tag)}
+							className={`rounded-[5px] border px-2 py-1 text-xs font-medium text-foreground transition ${
+								selectedKeywords.has(tag)
+									? "border-[#111827] bg-[#f3f4f6]"
+									: "border-[#d7d7d7] bg-white hover:bg-[#f9fafb]"
+							}`}
 						>
 							{tag}
-						</span>
+						</button>
 					))}
 				</div>
 			</div>

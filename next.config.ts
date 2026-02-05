@@ -7,7 +7,8 @@ const nextConfig: NextConfig = {
 		remotePatterns: [
 			{
 				protocol: "http",
-				hostname: "api.fitjob-back.orb.local",
+				hostname: "localhost",
+				port: "8000",
 			},
 		],
 	},

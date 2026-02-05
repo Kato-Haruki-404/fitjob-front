@@ -1,10 +1,6 @@
-import type { LucideIcon } from "lucide-react";
 import {
 	BadgeJapaneseYen,
-	BicepsFlexed,
 	Building2,
-	Flame,
-	Footprints,
 	Mail,
 	MapPin,
 	Phone,
@@ -37,35 +33,38 @@ type JobDetailModalProps = {
 };
 
 type IconMeterProps = {
-	icon: LucideIcon;
+	iconSrc: string;
+	iconAlt: string;
 	count: number;
 	activeCount?: number;
-	activeClassName: string;
+	activeClassName?: string;
 	inactiveClassName?: string;
 };
 
 function IconMeter({
-	icon: Icon,
+	iconSrc,
+	iconAlt,
 	count,
 	activeCount = count,
-	activeClassName,
+	activeClassName = "",
 	inactiveClassName = "opacity-40",
 }: IconMeterProps) {
-	const iconName = Icon.displayName ?? Icon.name ?? "icon";
-	const iconKeys = Array.from(
-		{ length: count },
-		(_, index) => `${iconName}-${index + 1}`,
-	);
+	const iconKeys = Array.from({ length: count }, (_, index) => index + 1);
 	return (
 		<div className="flex items-center gap-3">
 			{iconKeys.map((key, index) => {
 				const isActive = index < activeCount;
 				const colorClass = isActive ? activeClassName : inactiveClassName;
 				return (
-					<Icon
-						key={key}
-						aria-hidden="true"
+					<Image
+						key={`${iconSrc}-${key}`}
+						src={iconSrc}
+						alt={iconAlt}
+						width={24}
+						height={24}
+						unoptimized={true}
 						className={`size-6 ${colorClass}`}
+						aria-hidden="true"
 					/>
 				);
 			})}
@@ -95,7 +94,7 @@ export default function JobDetailModal({
 	className,
 }: JobDetailModalProps) {
 	const rootClassName =
-		"flex w-full max-w-[780px] flex-col gap-10 rounded-[20px] bg-white p-5 shadow-card" +
+		"flex w-full min-w-[320px] sm:min-w-3xl max-w-[780px] flex-col gap-10 rounded-[20px] bg-white p-8 shadow-card" +
 		(className ? ` ${className}` : "");
 	const intensityCount = Math.max(0, Math.min(5, Math.round(intensityLevel)));
 	const tagCounts = new Map<string, number>();
@@ -112,9 +111,9 @@ export default function JobDetailModal({
 					type="button"
 					aria-label="閉じる"
 					onClick={onClose}
-					className="flex size-8 items-center justify-center rounded-full transition hover:bg-black/5"
+					className="flex size-10 items-center justify-center rounded-full transition hover:bg-black/5"
 				>
-					<X className="size-4 text-black" />
+					<X className="size-5 text-black" />
 				</button>
 			</div>
 
@@ -126,6 +125,7 @@ export default function JobDetailModal({
 						fill
 						className="object-cover"
 						sizes="(min-width: 768px) 420px, 100vw"
+						unoptimized={true}
 					/>
 				</div>
 			</div>
@@ -147,9 +147,11 @@ export default function JobDetailModal({
 						<div className="flex items-center gap-3">
 							<p className="text-[20px] font-medium text-black">{calories}</p>
 							<IconMeter
-								icon={Flame}
+								iconSrc="/emoji_burger.svg"
+								iconAlt=""
 								count={calorieIconCount}
-								activeClassName="text-[#f59e0b]"
+								activeClassName=""
+								inactiveClassName="opacity-40"
 							/>
 						</div>
 					</div>
@@ -160,9 +162,11 @@ export default function JobDetailModal({
 						<div className="flex items-center gap-7.5">
 							<p className="text-[20px] font-medium text-black">{steps}</p>
 							<IconMeter
-								icon={Footprints}
+								iconSrc="/emoji_shoes.svg"
+								iconAlt=""
 								count={stepsIconCount}
-								activeClassName="text-[#3b82f6]"
+								activeClassName=""
+								inactiveClassName="opacity-40"
 							/>
 						</div>
 					</div>
@@ -171,11 +175,12 @@ export default function JobDetailModal({
 							運動強度
 						</p>
 						<IconMeter
-							icon={BicepsFlexed}
+							iconSrc="/twemoji-flexed-biceps.svg"
+							iconAlt=""
 							count={5}
 							activeCount={intensityCount}
-							activeClassName="text-[#facc15]"
-							inactiveClassName="text-[#facc15]/40"
+							activeClassName=""
+							inactiveClassName="invisible"
 						/>
 					</div>
 				</div>

@@ -75,6 +75,11 @@ export type RequestJobsParams = {
 	exerciseLevels?: number[];
 	salaryType?: "時給" | "日給";
 	sort?: string | string[];
+	distance?: boolean;
+	calorie?: boolean;
+	wage?: boolean;
+	exercise?: boolean;
+	latest?: boolean;
 	perPage?: number;
 	page?: number;
 	latitude?: number;
@@ -290,6 +295,89 @@ function normalizeJobsResponse(raw: ApiJobs): Jobs {
 	};
 }
 
+type SortKey = "latest" | "calorie" | "wage" | "exercise" | "distance";
+
+function normalizeSortKey(value: string): SortKey | null {
+	const normalized = value.trim().toLowerCase();
+	if (normalized === "latest" || normalized === "new") {
+		return "latest";
+	}
+	if (normalized === "calorie" || normalized === "calories") {
+		return "calorie";
+	}
+	if (normalized === "wage") {
+		return "wage";
+	}
+	if (normalized === "exercise" || normalized === "intensity") {
+		return "exercise";
+	}
+	if (normalized === "distance") {
+		return "distance";
+	}
+	return null;
+}
+
+function resolveSortKey(params: RequestJobsParams): SortKey | null {
+	if (params.sort) {
+		const sortValues = Array.isArray(params.sort) ? params.sort : [params.sort];
+		for (const rawValue of sortValues) {
+			const sortKey = normalizeSortKey(rawValue);
+			if (sortKey) {
+				return sortKey;
+			}
+		}
+	}
+	if (params.latest) {
+		return "latest";
+	}
+	if (params.calorie) {
+		return "calorie";
+	}
+	if (params.wage) {
+		return "wage";
+	}
+	if (params.exercise) {
+		return "exercise";
+	}
+	if (params.distance) {
+		return "distance";
+	}
+	return null;
+}
+
+function sortJobs(data: Job[], sortKey: SortKey | null): Job[] {
+	if (!sortKey) {
+		return data;
+	}
+	if (sortKey === "distance") {
+		return data;
+	}
+
+	const sorted = [...data];
+	const getValue = (job: Job): number => {
+		switch (sortKey) {
+			case "latest":
+				return new Date(job.createdAt).getTime() || 0;
+			case "calorie":
+				return job.momentum?.calorie ?? 0;
+			case "wage":
+				return job.wage ?? 0;
+			case "exercise":
+				return job.momentum?.exerciseLevel ?? 0;
+		}
+	};
+
+	sorted.sort((a, b) => {
+		const diff = getValue(b) - getValue(a);
+		if (diff !== 0) {
+			return diff;
+		}
+		return b.id - a.id;
+	});
+
+	return sorted;
+}
+
 function buildQueryString(params: RequestJobsParams): string {
 	const searchParams = new URLSearchParams();
 
@@ -329,10 +417,36 @@ function buildQueryString(params: RequestJobsParams): string {
 	if (params.salaryType) {
 		searchParams.append("salary_type", params.salaryType);
 	}
+	const sortFlags: Record<
+		"distance" | "calorie" | "wage" | "exercise" | "latest",
+		boolean
+	> = {
+		distance: params.distance === true,
+		calorie: params.calorie === true,
+		wage: params.wage === true,
+		exercise: params.exercise === true,
+		latest: params.latest === true,
+	};
 	if (params.sort) {
 		const sortValues = Array.isArray(params.sort) ? params.sort : [params.sort];
-		for (const value of sortValues) {
-			searchParams.append("sort[]", value);
+		for (const rawValue of sortValues) {
+			const value = rawValue.toLowerCase();
+			if (value === "distance") {
+				sortFlags.distance = true;
+			} else if (value === "calorie" || value === "calories") {
+				sortFlags.calorie = true;
+			} else if (value === "wage") {
+				sortFlags.wage = true;
+			} else if (value === "exercise" || value === "intensity") {
+				sortFlags.exercise = true;
+			} else if (value === "latest" || value === "new") {
+				sortFlags.latest = true;
+			}
+		}
+	}
+	for (const [key, isEnabled] of Object.entries(sortFlags)) {
+		if (isEnabled) {
+			searchParams.set(key, "true");
 		}
 	}
 	if (params.perPage !== undefined) {
@@ -369,7 +483,13 @@ export default async function fetchJobs({
 	}
 
 	const rawData: ApiJobs = await response.json();
-	const data = normalizeJobsResponse(rawData);
+	const normalized = normalizeJobsResponse(rawData);
+	const sortKey = resolveSortKey(params);
+	const sortedData = sortJobs(normalized.data, sortKey);
+	const data: Jobs = {
+		...normalized,
+		data: sortedData,
+	};
 
 	return data;
 }
