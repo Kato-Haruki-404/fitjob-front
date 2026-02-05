@@ -65,6 +65,7 @@ export type Jobs = {
 
 export type RequestJobsParams = {
 	keyword?: string[];
+	tags?: string[];
 	jobIds?: number[];
 	minWage?: number;
 	maxWage?: number;
@@ -384,6 +385,11 @@ function buildQueryString(params: RequestJobsParams): string {
 	if (params.keyword) {
 		for (const k of params.keyword) {
 			searchParams.append("keyword[]", k);
+		}
+	}
+	if (params.tags) {
+		for (const tag of params.tags) {
+			searchParams.append("tags[]", tag);
 		}
 	}
 	if (params.jobIds) {
