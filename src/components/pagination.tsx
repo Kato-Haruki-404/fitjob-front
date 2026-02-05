@@ -20,7 +20,7 @@ function buildPageItems(_currentPage: number, totalPages: number): PageItem[] {
 
 	const currentPage = Math.min(Math.max(1, _currentPage), totalPages);
 	const windowSize = 3;
-	let start = Math.max(1, currentPage - 2);
+	let start = Math.max(1, currentPage - 1);
 	const end = Math.min(totalPages, start + windowSize - 1);
 	start = Math.max(1, end - windowSize + 1);
 

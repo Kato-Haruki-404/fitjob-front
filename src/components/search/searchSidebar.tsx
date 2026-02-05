@@ -20,40 +20,46 @@ const tagItems = [
 
 const hourlyWageOptions = [
 	{ label: "ー", minValue: "", maxValue: "" },
-	{ label: "1,000円以上", minValue: "1000", maxValue: "" },
-	{ label: "1,200円以上", minValue: "1200", maxValue: "" },
-	{ label: "1,500円以上", minValue: "1500", maxValue: "" },
 	{ label: "1,700円以上", minValue: "1700", maxValue: "" },
-	{ label: "2,000円以上", minValue: "2000", maxValue: "" },
+	{ label: "1,600円以上", minValue: "1600", maxValue: "" },
+	{ label: "1,500円以上", minValue: "1500", maxValue: "" },
+	{ label: "1,400円以上", minValue: "1400", maxValue: "" },
+	{ label: "1,300円以上", minValue: "1300", maxValue: "" },
+	{ label: "1,200円以上", minValue: "1200", maxValue: "" },
+	{ label: "1,100円以上", minValue: "1100", maxValue: "" },
+	{ label: "1,000円以上", minValue: "1000", maxValue: "" },
 ];
 
 const dailyWageOptions = [
 	{ label: "ー", minValue: "", maxValue: "" },
-	{ label: "8,000円以上", minValue: "8000", maxValue: "" },
-	{ label: "10,000円以上", minValue: "10000", maxValue: "" },
-	{ label: "12,000円以上", minValue: "12000", maxValue: "" },
-	{ label: "15,000円以上", minValue: "15000", maxValue: "" },
 	{ label: "20,000円以上", minValue: "20000", maxValue: "" },
+	{ label: "18,000円以上", minValue: "18000", maxValue: "" },
+	{ label: "16,000円以上", minValue: "16000", maxValue: "" },
+	{ label: "14,000円以上", minValue: "14000", maxValue: "" },
+	{ label: "12,000円以上", minValue: "12000", maxValue: "" },
+	{ label: "10,000円以上", minValue: "10000", maxValue: "" },
+	{ label: "8,000円以上", minValue: "8000", maxValue: "" },
+	{ label: "6,500円以上", minValue: "6500", maxValue: "" },
 ];
 
 const calorieOptions = [
 	{ label: "ー", minValue: "", maxValue: "" },
-	{ label: "100~199kcal/h", minValue: "100", maxValue: "199" },
-	{ label: "200~299kcal/h", minValue: "200", maxValue: "299" },
-	{ label: "300~399kcal/h", minValue: "300", maxValue: "399" },
-	{ label: "400~499kcal/h", minValue: "400", maxValue: "499" },
+	{ label: "600~699kcal/h", minValue: "600", maxValue: "699" },
 	{ label: "500~599kcal/h", minValue: "500", maxValue: "599" },
-	{ label: "600kcal/h以上", minValue: "600", maxValue: "" },
+	{ label: "400~499kcal/h", minValue: "400", maxValue: "499" },
+	{ label: "300~399kcal/h", minValue: "300", maxValue: "399" },
+	{ label: "200~299kcal/h", minValue: "200", maxValue: "299" },
+	{ label: "100~199kcal/h", minValue: "100", maxValue: "199" },
 ];
 
 const stepsOptions = [
 	{ label: "ー", minValue: "", maxValue: "" },
-	{ label: "1~999歩/h", minValue: "1", maxValue: "999" },
-	{ label: "1,000~1,999歩/h", minValue: "1000", maxValue: "1999" },
-	{ label: "2,000~2,999歩/h", minValue: "2000", maxValue: "2999" },
-	{ label: "3,000~3,999歩/h", minValue: "3000", maxValue: "3999" },
+	{ label: "5,000~5,999歩/h", minValue: "5000", maxValue: "5999" },
 	{ label: "4,000~4,999歩/h", minValue: "4000", maxValue: "4999" },
-	{ label: "5,000歩/h以上", minValue: "5000", maxValue: "" },
+	{ label: "3,000~3,999歩/h", minValue: "3000", maxValue: "3999" },
+	{ label: "2,000~2,999歩/h", minValue: "2000", maxValue: "2999" },
+	{ label: "1,000~1,999歩/h", minValue: "1000", maxValue: "1999" },
+	{ label: "1~999歩/h", minValue: "1", maxValue: "999" },
 ];
 
 type RangeOption = {
@@ -156,13 +162,14 @@ function SearchSidebarContent({ total }: SearchSidebarContentProps) {
 	const isDailyWage = pathname.includes("dailywage");
 	const wageOptions = isDailyWage ? dailyWageOptions : hourlyWageOptions;
 	const wageLabel = isDailyWage ? "日給" : "時給";
-	const selectedKeywords = new Set([
-		...searchParams.getAll("keyword"),
-		...searchParams.getAll("keyword[]"),
+	const selectedTags = new Set([
+		...searchParams.getAll("tags"),
+		...searchParams.getAll("tags[]"),
 	]);
 	const selectedExerciseLevels = new Set([
 		...searchParams.getAll("exercise_levels"),
 		...searchParams.getAll("exercise_levels[]"),
+		...searchParams.getAll("activityLevel"),
 	]);
 	const selectedExerciseLevel = Math.max(
 		0,
@@ -175,6 +182,9 @@ function SearchSidebarContent({ total }: SearchSidebarContentProps) {
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete(name);
 		params.delete(`${name}[]`);
+		if (name === "exercise_levels") {
+			params.delete("activityLevel");
+		}
 		for (const value of values) {
 			params.append(name, value);
 		}
@@ -184,13 +194,13 @@ function SearchSidebarContent({ total }: SearchSidebarContentProps) {
 	};
 
 	const handleTagToggle = (tag: string) => {
-		const nextKeywords = new Set(selectedKeywords);
-		if (nextKeywords.has(tag)) {
-			nextKeywords.delete(tag);
+		const nextTags = new Set(selectedTags);
+		if (nextTags.has(tag)) {
+			nextTags.delete(tag);
 		} else {
-			nextKeywords.add(tag);
+			nextTags.add(tag);
 		}
-		applyArrayParams("keyword", Array.from(nextKeywords));
+		applyArrayParams("tags", Array.from(nextTags));
 	};
 
 	const handleExerciseLevelSelect = (level: number) => {
@@ -272,7 +282,7 @@ function SearchSidebarContent({ total }: SearchSidebarContentProps) {
 							type="button"
 							onClick={() => handleTagToggle(tag)}
 							className={`rounded-[5px] border px-2 py-1 text-xs font-medium text-foreground transition ${
-								selectedKeywords.has(tag)
+								selectedTags.has(tag)
 									? "border-[#111827] bg-[#f3f4f6]"
 									: "border-[#d7d7d7] bg-white hover:bg-[#f9fafb]"
 							}`}

@@ -98,8 +98,27 @@ export default function SortControls({
 		params.delete("wage");
 		params.delete("exercise");
 		params.delete("latest");
+		params.delete("latitude");
+		params.delete("longitude");
 		params.set(name, nextValue);
 		params.delete("page");
+		if (nextValue === "distance") {
+			if (!navigator.geolocation) {
+				return;
+			}
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					params.set("latitude", position.coords.latitude.toString());
+					params.set("longitude", position.coords.longitude.toString());
+					const queryString = params.toString();
+					router.push(queryString ? `${pathname}?${queryString}` : pathname);
+				},
+				() => {
+					return;
+				},
+			);
+			return;
+		}
 		const queryString = params.toString();
 		router.push(queryString ? `${pathname}?${queryString}` : pathname);
 	};
