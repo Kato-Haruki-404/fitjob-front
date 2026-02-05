@@ -359,9 +359,6 @@ export default async function fetchJobs({
 	const queryString = buildQueryString(params);
 	const url = `${process.env.API_URL}/api/jobs${queryString ? `?${queryString}` : ""}`;
 
-	console.log("[fetchJobs] Request params:", JSON.stringify(params, null, 2));
-	console.log("[fetchJobs] Request URL:", url);
-
 	const response = await fetch(url, {
 		method: "GET",
 		cache: "no-store",
