@@ -160,7 +160,7 @@ export default function PostingRequestPage() {
 					<form.Field name="hourlyWage">
 						{(field) => (
 							<NumberField
-								label="時給単価"
+								label="時給/日給単価"
 								placeholder="1200"
 								min={0}
 								field={field}
