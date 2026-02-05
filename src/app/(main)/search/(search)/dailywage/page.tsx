@@ -12,8 +12,11 @@ type Props = {
 		max_steps?: string;
 		keyword?: string | string[];
 		"keyword[]"?: string | string[];
+		tags?: string | string[];
+		"tags[]"?: string | string[];
 		exercise_levels?: string | string[];
 		"exercise_levels[]"?: string | string[];
+		activityLevel?: string;
 		workLocation?: string;
 		sort?: string;
 		"sort[]"?: string | string[];
@@ -46,8 +49,11 @@ export default async function DailyWageSearchPage({ searchParams }: Props) {
 	const perPage = 10;
 	const sortParam = params.sort ?? params["sort[]"];
 	const keywordParam = params.keyword ?? params["keyword[]"];
+	const tagsParam = params.tags ?? params["tags[]"];
 	const exerciseLevelsParam =
-		params.exercise_levels ?? params["exercise_levels[]"];
+		params.exercise_levels ??
+		params["exercise_levels[]"] ??
+		params.activityLevel;
 	const distance = isTruthyParam(params.distance);
 	const calorie = isTruthyParam(params.calorie);
 	const wage = isTruthyParam(params.wage);
@@ -107,6 +113,11 @@ export default async function DailyWageSearchPage({ searchParams }: Props) {
 				? Array.isArray(keywordParam)
 					? keywordParam
 					: [keywordParam]
+				: undefined,
+			tags: tagsParam
+				? Array.isArray(tagsParam)
+					? tagsParam
+					: [tagsParam]
 				: undefined,
 			exerciseLevels,
 			salaryType: "日給",
