@@ -56,27 +56,27 @@ export default function Home() {
 						items={[
 							{
 								label: "600~699kcal/h",
-								href: "/search?min_calories=600&max_calories=699",
+								href: "/search?min_calorie=600&max_calorie=699",
 							},
 							{
 								label: "500~599kcal/h",
-								href: "/search?min_calories=500&max_calories=599",
+								href: "/search?min_calorie=500&max_calorie=599",
 							},
 							{
 								label: "400~499kcal/h",
-								href: "/search?min_calories=400&max_calories=499",
+								href: "/search?min_calorie=400&max_calorie=499",
 							},
 							{
 								label: "300~399kcal/h",
-								href: "/search?min_calories=300&max_calories=399",
+								href: "/search?min_calorie=300&max_calorie=399",
 							},
 							{
 								label: "200~299kcal/h",
-								href: "/search?min_calories=200&max_calories=299",
+								href: "/search?min_calorie=200&max_calorie=299",
 							},
 							{
 								label: "100~199kcal/h",
-								href: "/search?min_calories=100&max_calories=199",
+								href: "/search?min_calorie=100&max_calorie=199",
 							},
 						]}
 						isDailyWage={isDailyWage}
@@ -88,27 +88,27 @@ export default function Home() {
 						items={[
 							{
 								label: "5,000~5,999歩/h",
-								href: "/search?min_stepcount=5000&max_stepcount=5999",
+								href: "/search?min_steps=5000&max_steps=5999",
 							},
 							{
 								label: "4,000~4,999歩/h",
-								href: "/search?min_stepcount=4000&max_stepcount=4999",
+								href: "/search?min_steps=4000&max_steps=4999",
 							},
 							{
 								label: "3,000~3,999歩/h",
-								href: "/search?min_stepcount=3000&max_stepcount=3999",
+								href: "/search?min_steps=3000&max_steps=3999",
 							},
 							{
 								label: "2,000~2,999歩/h",
-								href: "/search?min_stepcount=2000&max_stepcount=2999",
+								href: "/search?min_steps=2000&max_steps=2999",
 							},
 							{
 								label: "1,000~1,999歩/h",
-								href: "/search?min_stepcount=1000&max_stepcount=1999",
+								href: "/search?min_steps=1000&max_steps=1999",
 							},
 							{
 								label: "1~999歩/h",
-								href: "/search?min_stepcount=1&max_stepcount=999",
+								href: "/search?min_steps=1&max_steps=999",
 							},
 						]}
 						isDailyWage={isDailyWage}
