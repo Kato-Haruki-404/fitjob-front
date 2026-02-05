@@ -46,11 +46,11 @@ export default function SearchArea() {
 						onChange={(e) => setGeneralKeyword(e.target.value)}
 						onKeyDown={(e) => {
 							if (e.key === "Enter") {
-								if (!generalKeyword) {
-									return;
-								}
+								const trimmedKeyword = generalKeyword.trim();
 								router.push(
-									`${searchBase}?keyword=${encodeURIComponent(generalKeyword)}`,
+									trimmedKeyword
+										? `${searchBase}?keyword=${encodeURIComponent(trimmedKeyword)}`
+										: searchBase,
 								);
 							}
 						}}
