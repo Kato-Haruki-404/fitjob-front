@@ -2,17 +2,22 @@
 
 import { Input } from "@headlessui/react";
 import { MapPin, Search } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export default function SearchArea() {
 	const router = useRouter();
 	const pathname = usePathname();
+	const searchParams = useSearchParams();
 	const [workLocationKeyword, setWorkLocationKeyword] = useState("");
 	const [generalKeyword, setGeneralKeyword] = useState("");
 	const searchBase = pathname?.startsWith("/search/dailywage")
 		? "/search/dailywage"
 		: "/search/hourlywage";
+	const buildSearchUrl = (nextParams: URLSearchParams) => {
+		const query = nextParams.toString();
+		return query ? `${searchBase}?${query}` : searchBase;
+	};
 
 	return (
 		<div className="py-10 px-5 md:p-10 bg-main">
@@ -26,12 +31,16 @@ export default function SearchArea() {
 						onChange={(e) => setWorkLocationKeyword(e.target.value)}
 						onKeyDown={(e) => {
 							if (e.key === "Enter") {
-								if (!workLocationKeyword) {
-									return;
-								}
-								router.push(
-									`${searchBase}?workLocation=${encodeURIComponent(workLocationKeyword)}`,
+								const trimmedKeyword = workLocationKeyword.trim();
+								const nextParams = new URLSearchParams(
+									searchParams?.toString(),
 								);
+								if (trimmedKeyword) {
+									nextParams.set("workLocation", trimmedKeyword);
+								} else {
+									nextParams.delete("workLocation");
+								}
+								router.push(buildSearchUrl(nextParams));
 							}
 						}}
 					/>
@@ -47,11 +56,15 @@ export default function SearchArea() {
 						onKeyDown={(e) => {
 							if (e.key === "Enter") {
 								const trimmedKeyword = generalKeyword.trim();
-								router.push(
-									trimmedKeyword
-										? `${searchBase}?keyword=${encodeURIComponent(trimmedKeyword)}`
-										: searchBase,
+								const nextParams = new URLSearchParams(
+									searchParams?.toString(),
 								);
+								if (trimmedKeyword) {
+									nextParams.set("keyword", trimmedKeyword);
+								} else {
+									nextParams.delete("keyword");
+								}
+								router.push(buildSearchUrl(nextParams));
 							}
 						}}
 					/>
