@@ -18,7 +18,8 @@ export default function ActivityIcons({ level }: ActivityIconsProps) {
 					aria-hidden="true"
 					width={24}
 					height={24}
-					className={`h-6 w-6 ${index < activityCount ? "" : "opacity-50"}`}
+					unoptimized={true}
+					className={`h-6 w-6 ${index < activityCount ? "" : "invisible"}`}
 				/>
 			))}
 		</div>

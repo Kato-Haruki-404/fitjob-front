@@ -12,7 +12,13 @@ export default function Header() {
 	return (
 		<header className="flex items-center justify-between px-10 h-20 shrink-0">
 			<Link href="/" className="text-2xl font-bold">
-				<Image src="/logo.svg" width={140} height={31} alt="FitJob" />
+				<Image
+					src="/logo.svg"
+					width={140}
+					height={31}
+					alt="FitJob"
+					unoptimized={true}
+				/>
 			</Link>
 			<nav className="hidden md:flex items-center gap-10 shrink-0">
 				<div className="flex items-center gap-5">

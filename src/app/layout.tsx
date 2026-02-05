@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "@/app/globals.css";
 import Header from "@/components/header";
+import QueryProvider from "@/components/queryProvider";
 
 const noto_Sans_JP = Noto_Sans_JP();
 
@@ -20,8 +21,10 @@ export default function RootLayout({
 			<body
 				className={`${noto_Sans_JP.className} antialiased min-h-screen flex flex-col`}
 			>
-				<Header />
-				{children}
+				<QueryProvider>
+					<Header />
+					{children}
+				</QueryProvider>
 			</body>
 		</html>
 	);
