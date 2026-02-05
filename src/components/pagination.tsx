@@ -14,29 +14,17 @@ type PaginationProps = {
 type PageItem = number;
 
 function buildPageItems(_currentPage: number, totalPages: number): PageItem[] {
-	if (totalPages <= 5) {
+	if (totalPages <= 3) {
 		return Array.from({ length: totalPages }, (_, index) => index + 1);
 	}
 
 	const currentPage = Math.min(Math.max(1, _currentPage), totalPages);
-	const firstPage = 1;
-	const lastPage = totalPages;
+	const windowSize = 3;
+	let start = Math.max(1, currentPage - 2);
+	const end = Math.min(totalPages, start + windowSize - 1);
+	start = Math.max(1, end - windowSize + 1);
 
-	if (currentPage <= 3) {
-		return [firstPage, 2, 3, 4, lastPage];
-	}
-
-	if (currentPage >= totalPages - 2) {
-		return [
-			firstPage,
-			totalPages - 3,
-			totalPages - 2,
-			totalPages - 1,
-			lastPage,
-		];
-	}
-
-	return [firstPage, currentPage - 1, currentPage, currentPage + 1, lastPage];
+	return Array.from({ length: end - start + 1 }, (_, index) => start + index);
 }
 
 function buildPageUrl(
