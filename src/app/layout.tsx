@@ -18,7 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang="ja">
 			<body
-				className={`${noto_Sans_JP.className} antialiased h-screen flex flex-col`}
+				className={`${noto_Sans_JP.className} antialiased min-h-screen flex flex-col`}
 			>
 				<Header />
 				{children}
